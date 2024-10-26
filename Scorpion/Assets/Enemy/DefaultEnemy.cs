@@ -12,9 +12,11 @@ public class DefaultEnemy : MonoBehaviour
     [SerializeField] private float attackCooldown = 1f; // in seconds
     public List<GameObject> targets; // TODO: make list of Vector3 instead...?
 
-    private float timeOfLastAttack = 0f;
-    private GameObject currTarget; // == null if no current target
     private float retargetCooldown = 0.5f;
+
+    private float targetDist = float.PositiveInfinity;
+    private float timeOfLastAttack = 0f;
+    private GameObject currTarget; // null if no current target
     private float timeOfLastRetarget = 0f;
 
     void Start()
@@ -25,22 +27,21 @@ public class DefaultEnemy : MonoBehaviour
     void Update()
     {
         // retarget and get the current distance to target
-        float dist = currTarget ? Mathf.Abs((currTarget.transform.position - transform.position).magnitude) : float.PositiveInfinity;
         if (timeOfLastRetarget + retargetCooldown < Time.time)
         {
-            dist = Retarget (dist);
+            Retarget ();
             timeOfLastRetarget = Time.time;
         }
 
         if (currTarget != null)
         {
             // advance towards target and attack
-            Vector3 desiredDirection = currTarget.transform.position - transform.position;
-            
-            Move (desiredDirection.normalized);
-            if (timeOfLastAttack + attackCooldown < Time.time && dist < range)
+            Vector3 desiredDirection = (currTarget.transform.position - transform.position).normalized;
+            Move (desiredDirection);
+            targetDist = Mathf.Abs((currTarget.transform.position - transform.position).magnitude);
+            if (timeOfLastAttack + attackCooldown < Time.time && targetDist < range)
             {
-                Attack (desiredDirection.normalized);
+                Attack (desiredDirection);
                 timeOfLastAttack = Time.time;
             }
         }
@@ -48,19 +49,22 @@ public class DefaultEnemy : MonoBehaviour
     }
 
     // choose a new target based on proximity
-    // returns the new distance to the current target
-    public float Retarget (float dist)
+    public void Retarget ()
     {
+        if (!targets.Contains (currTarget))
+        {
+            currTarget = null;
+            targetDist = float.PositiveInfinity;
+        }
         foreach (GameObject t in targets)
         {
             float tDist = Mathf.Abs((t.transform.position - transform.position).magnitude);
-            if (tDist < dist)
+            if (tDist < targetDist)
             {
                 currTarget = t;
-                dist = tDist;
+                targetDist = tDist;
             }
         }
-        return dist;
     }
 
     // advance in a certain direction
