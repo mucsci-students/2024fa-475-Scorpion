@@ -50,10 +50,10 @@ public class SwordCollider : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)  // Use OnTriggerEnter if using 3D physics
     {
         // Check if the other object has a Health component
-        //Health health = other.GetComponent<Health>();
-        //if (health != null)
+        Health health = other.GetComponent<Health>();
+        if (health != null)
         {
-           // health.TakeDamage(damageAmount);  // Apply damage
+            health.TakeDamage(damageAmount);  // Apply damage
         }
     }
 }

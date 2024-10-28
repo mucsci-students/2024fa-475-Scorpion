@@ -27,8 +27,8 @@ public class Shield : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         // Check if the other object has a Health component (or any other component to block)
-       // Health health = other.GetComponent<Health>();
-       // if (health != null)
+        Health health = other.GetComponent<Health>();
+        if (health != null)
         {
             // Block the projectile or enemy (add your blocking logic here)
             Debug.Log("Blocked an incoming object: " + other.name);

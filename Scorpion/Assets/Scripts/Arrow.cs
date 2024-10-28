@@ -5,46 +5,49 @@ using UnityEngine;
 public class Arrow : MonoBehaviour
 {
     public float speed = 10f; // Speed of the arrow
-    public float destroyAfter = 5f; // Time before the arrow disappears if it sticks
+    public float destroyAfter = 5f; // Time before the arrow disappears if it doesn’t hit anything
+    public int damageAmount = 1; // Damage amount the arrow deals
     private Rigidbody2D rb;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        rb.velocity = transform.right * speed; // Move the arrow in the direction it's facing
-        Destroy(gameObject, destroyAfter); // Destroy the arrow after the specified time
+        rb.velocity = transform.right * speed; // Initial movement of the arrow
+        Destroy(gameObject, destroyAfter); // Destroy after a set time if no collision occurs
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        // Check if the arrow hits an enemy (assuming enemies have a Health component)
-       // Health health = other.GetComponent<Health>();
-       // if (health != null)
+        if (other.CompareTag("Shield"))
         {
-            // If it's an enemy, apply damage and destroy the arrow
-         //   health.TakeDamage(1); // Change 1 to the desired damage amount
-            Debug.Log("Arrow hit an enemy: " + other.name);
-            Destroy(gameObject); // Destroy the arrow on hit
+            // Reverse the arrow's direction by flipping its velocity
+            rb.velocity = -rb.velocity;
+
+            // Flip the sprite horizontally
+            Vector3 flippedScale = transform.localScale;
+            flippedScale.x *= -1;
+            transform.localScale = flippedScale;
+
+            Debug.Log("Arrow hit the shield, reversed direction, and flipped sprite.");
         }
-        //else
+        else if (other.CompareTag("Enemy"))
         {
-            // If it's not an enemy, stick the arrow to the object
-            StickArrow(other);
+            // Apply damage if the arrow hits an enemy
+            Health enemyHealth = other.GetComponent<Health>();
+            if (enemyHealth != null)
+            {
+                enemyHealth.TakeDamage(damageAmount);
+                Debug.Log("Arrow hit an enemy and dealt " + damageAmount + " damage.");
+            }
+
+            // Destroy the arrow after hitting the enemy
+            Destroy(gameObject);
         }
-    }
-
-    void StickArrow(Collider2D other)
-    {
-        // Stop the arrow's movement
-        rb.velocity = Vector2.zero;
-
-        // Disable the collider to prevent further collisions
-        GetComponent<Collider2D>().enabled = false;
-
-        // Set the arrow's parent to the object it hit to keep it in place
-        transform.SetParent(other.transform);
-
-        Debug.Log("Arrow stuck to: " + other.name);
-        // No need to destroy the arrow here since it will be destroyed after the time set in Start
+        else
+        {
+            // Destroy the arrow on contact with anything else
+            Debug.Log("Arrow hit: " + other.name + " and was destroyed.");
+            Destroy(gameObject);
+        }
     }
 }
