@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraMov : MonoBehaviour
 {
-    public bool moving = true;     //To be used later for stop and go implementation
+    public bool moving = false;     //To be used later for stop and go implementation
     public float camSpeed = 0.5f;
     public float boundHeight = 50f;
 
@@ -21,6 +21,7 @@ public class CameraMov : MonoBehaviour
     void stopMoving(){
         moving = false;
     }
+
     // Update is called once per frame
     void Update()
     {
@@ -31,5 +32,9 @@ public class CameraMov : MonoBehaviour
         if(Input.GetMouseButtonDown(0)){
             stopMoving();
         }
+        if(Input.GetKeyDown(KeyCode.Space)){
+            startMoving();
+        }
+
     }
 }
