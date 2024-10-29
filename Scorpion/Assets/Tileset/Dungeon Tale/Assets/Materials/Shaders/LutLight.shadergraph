@@ -170,11 +170,7 @@
             "m_Id": "02a0b0e5cdfd4393aa1eb66d77c5003f"
         }
     ],
-    "m_GroupDatas": [
-        {
-            "m_Id": "340996a9b62348b9bc0f64eced5bb157"
-        }
-    ],
+    "m_GroupDatas": [],
     "m_StickyNoteDatas": [
         {
             "m_Id": "ea600296d5554286a88c346071d4bd08"
@@ -904,6 +900,7 @@
     "m_OutputNode": {
         "m_Id": ""
     },
+    "m_SubDatas": [],
     "m_ActiveTargets": [
         {
             "m_Id": "133a534781c641f09803a8829ff88f47"
@@ -1217,10 +1214,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 29.999996185302736,
-            "y": 692.0000610351563,
-            "width": 209.9999237060547,
-            "height": 326.0
+            "x": 24.5,
+            "y": 692.0,
+            "width": 208.00001525878907,
+            "height": 302.0
         }
     },
     "m_Slots": [
@@ -1247,7 +1244,7 @@
     },
     "m_SourceType": 0,
     "m_FunctionName": "lut_pix",
-    "m_FunctionSource": "121bb24c7bc9f7642b136678923e7a17",
+    "m_FunctionSource": "2c47b77006e1bb842ba2c05f54fd55a7",
     "m_FunctionBody": "Enter function body here..."
 }
 
@@ -1533,17 +1530,6 @@
 
 {
     "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.GroupData",
-    "m_ObjectId": "340996a9b62348b9bc0f64eced5bb157",
-    "m_Title": "Sample the Light Texture (Urp 2D)",
-    "m_Position": {
-        "x": -1646.509765625,
-        "y": 269.9999084472656
-    }
-}
-
-{
-    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.DynamicValueMaterialSlot",
     "m_ObjectId": "341ad80a08724449a7e1786aa986b83c",
     "m_Id": 2,
@@ -1642,17 +1628,17 @@
     "m_Type": "UnityEditor.ShaderGraph.SampleTexture2DNode",
     "m_ObjectId": "374f3fae7d46483aa45b887bac71de36",
     "m_Group": {
-        "m_Id": "340996a9b62348b9bc0f64eced5bb157"
+        "m_Id": ""
     },
     "m_Name": "Sample Texture 2D",
     "m_DrawState": {
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1449.0,
+            "x": -1449.0001220703125,
             "y": 442.0000305175781,
             "width": 208.0,
-            "height": 434.9999694824219
+            "height": 434.0000305175781
         }
     },
     "m_Slots": [
@@ -1827,7 +1813,7 @@
     },
     "m_SourceType": 0,
     "m_FunctionName": "uv_snap",
-    "m_FunctionSource": "121bb24c7bc9f7642b136678923e7a17",
+    "m_FunctionSource": "2c47b77006e1bb842ba2c05f54fd55a7",
     "m_FunctionBody": "Enter function body here..."
 }
 
@@ -1990,10 +1976,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -915.0,
-            "y": 740.0,
-            "width": 208.0,
-            "height": 277.99993896484377
+            "x": -915.0000610351563,
+            "y": 760.5,
+            "width": 208.00006103515626,
+            "height": 278.0
         }
     },
     "m_Slots": [
@@ -2017,7 +2003,7 @@
     },
     "m_SourceType": 0,
     "m_FunctionName": "avg",
-    "m_FunctionSource": "121bb24c7bc9f7642b136678923e7a17",
+    "m_FunctionSource": "2c47b77006e1bb842ba2c05f54fd55a7",
     "m_FunctionBody": "Enter function body here..."
 }
 
@@ -2325,10 +2311,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 569.9999389648438,
-            "y": 191.0,
-            "width": 120.00006103515625,
-            "height": 149.00003051757813
+            "x": 570.0000610351563,
+            "y": 190.00001525878907,
+            "width": 119.0,
+            "height": 148.99998474121095
         }
     },
     "m_Slots": [
@@ -2603,7 +2589,7 @@
             "x": -2382.0,
             "y": 864.0000610351563,
             "width": 145.0,
-            "height": 129.0
+            "height": 128.4998779296875
         }
     },
     "m_Slots": [
@@ -3028,10 +3014,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -915.0,
-            "y": 441.9999694824219,
-            "width": 208.0,
-            "height": 278.0000305175781
+            "x": -915.0000610351563,
+            "y": 439.0,
+            "width": 208.00006103515626,
+            "height": 278.00006103515627
         }
     },
     "m_Slots": [
@@ -3055,7 +3041,7 @@
     },
     "m_SourceType": 0,
     "m_FunctionName": "lum",
-    "m_FunctionSource": "121bb24c7bc9f7642b136678923e7a17",
+    "m_FunctionSource": "2c47b77006e1bb842ba2c05f54fd55a7",
     "m_FunctionBody": "Enter function body here..."
 }
 
@@ -3265,10 +3251,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -276.0000305175781,
-            "y": -103.99995422363281,
-            "width": 183.0000457763672,
-            "height": 250.99998474121095
+            "x": -276.0,
+            "y": -104.00001525878906,
+            "width": 183.00001525878907,
+            "height": 249.99998474121095
         }
     },
     "m_Slots": [
@@ -3346,17 +3332,17 @@
     "m_Type": "UnityEngine.Experimental.Rendering.Universal.LightTextureNode",
     "m_ObjectId": "8f03c4df2fdf46108a747dc9eba567a9",
     "m_Group": {
-        "m_Id": "340996a9b62348b9bc0f64eced5bb157"
+        "m_Id": ""
     },
     "m_Name": "2D Light Texture",
     "m_DrawState": {
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1622.0,
+            "x": -1621.9998779296875,
             "y": 329.0,
-            "width": 145.0,
-            "height": 112.0
+            "width": 144.9998779296875,
+            "height": 111.5
         }
     },
     "m_Slots": [
@@ -3639,8 +3625,8 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -2689.999755859375,
-            "y": 33.000030517578128,
+            "x": -2690.0,
+            "y": 33.00006866455078,
             "width": 208.0,
             "height": 302.0
         }
@@ -3792,7 +3778,7 @@
             "x": -915.0,
             "y": 136.0,
             "width": 208.0,
-            "height": 277.9999694824219
+            "height": 278.0
         }
     },
     "m_Slots": [
@@ -3816,7 +3802,7 @@
     },
     "m_SourceType": 0,
     "m_FunctionName": "max",
-    "m_FunctionSource": "121bb24c7bc9f7642b136678923e7a17",
+    "m_FunctionSource": "2c47b77006e1bb842ba2c05f54fd55a7",
     "m_FunctionBody": "Enter function body here..."
 }
 
@@ -4197,10 +4183,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 29.999996185302736,
+            "x": 29.999988555908204,
             "y": 317.0,
-            "width": 257.9999084472656,
-            "height": 326.00006103515627
+            "width": 239.00001525878907,
+            "height": 118.00003051757813
         }
     },
     "m_Slots": [
@@ -4227,7 +4213,7 @@
     },
     "m_SourceType": 0,
     "m_FunctionName": "lut_pix_smooth",
-    "m_FunctionSource": "121bb24c7bc9f7642b136678923e7a17",
+    "m_FunctionSource": "2c47b77006e1bb842ba2c05f54fd55a7",
     "m_FunctionBody": "Enter function body here..."
 }
 
@@ -4753,10 +4739,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -2459.000244140625,
+            "x": -2459.0,
             "y": 552.0,
-            "width": 213.000244140625,
-            "height": 278.0
+            "width": 212.5,
+            "height": 278.00006103515627
         }
     },
     "m_Slots": [
@@ -4780,7 +4766,7 @@
     },
     "m_SourceType": 0,
     "m_FunctionName": "uv_screen",
-    "m_FunctionSource": "121bb24c7bc9f7642b136678923e7a17",
+    "m_FunctionSource": "2c47b77006e1bb842ba2c05f54fd55a7",
     "m_FunctionBody": "Enter function body here..."
 }
 
@@ -5198,10 +5184,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -3156.999755859375,
-            "y": 173.0,
+            "x": -3157.0,
+            "y": 173.00003051757813,
             "width": 208.0,
-            "height": 302.00006103515627
+            "height": 302.0
         }
     },
     "m_Slots": [
@@ -5241,10 +5227,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 326.00006103515627,
-            "y": 688.0000610351563,
-            "width": 208.0,
-            "height": 301.99993896484377
+            "x": 326.0,
+            "y": 684.0,
+            "width": 208.00006103515626,
+            "height": 302.00006103515627
         }
     },
     "m_Slots": [
