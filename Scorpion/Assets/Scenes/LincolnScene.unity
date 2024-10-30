@@ -347,7 +347,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shieldPrefab: {fileID: 0}
-  summonButton: 101
+  shieldButton: 304
+  shieldOffset: {x: 1, y: 0}
 --- !u!114 &129876304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -362,7 +363,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arrowPrefab: {fileID: 0}
   shootButton: 102
-  shootForce: 20
+  shootCooldown: 1
 --- !u!114 &129876305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -398,6 +399,7 @@ MonoBehaviour:
   downButton: 115
   leftButton: 97
   rightButton: 100
+  lastFacingDirection: {x: 1, y: 0}
 --- !u!58 &129876309
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -969,6 +971,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Torch (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 1160356261127867848, guid: c9987513481982b4da5422edf0acd5c0, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 0f083b6109f3b470abe9984e69787c95, type: 2}
+    - target: {fileID: 3626916397498700004, guid: c9987513481982b4da5422edf0acd5c0, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7e7589a8f056a714ab824f8c84e2ecfe, type: 2}
     - target: {fileID: 7878350319992209165, guid: c9987513481982b4da5422edf0acd5c0, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1
@@ -1326,6 +1336,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Torch (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 1160356261127867848, guid: c9987513481982b4da5422edf0acd5c0, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 0f083b6109f3b470abe9984e69787c95, type: 2}
+    - target: {fileID: 3626916397498700004, guid: c9987513481982b4da5422edf0acd5c0, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7e7589a8f056a714ab824f8c84e2ecfe, type: 2}
     - target: {fileID: 7878350319992209165, guid: c9987513481982b4da5422edf0acd5c0, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7
@@ -2303,6 +2321,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Torch (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 1160356261127867848, guid: c9987513481982b4da5422edf0acd5c0, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 0f083b6109f3b470abe9984e69787c95, type: 2}
+    - target: {fileID: 3626916397498700004, guid: c9987513481982b4da5422edf0acd5c0, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7e7589a8f056a714ab824f8c84e2ecfe, type: 2}
     - target: {fileID: 7878350319992209165, guid: c9987513481982b4da5422edf0acd5c0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1
@@ -2363,6 +2389,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Torch (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1160356261127867848, guid: c9987513481982b4da5422edf0acd5c0, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 0f083b6109f3b470abe9984e69787c95, type: 2}
+    - target: {fileID: 3626916397498700004, guid: c9987513481982b4da5422edf0acd5c0, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7e7589a8f056a714ab824f8c84e2ecfe, type: 2}
     - target: {fileID: 7878350319992209165, guid: c9987513481982b4da5422edf0acd5c0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7
@@ -2505,6 +2539,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Torch (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1160356261127867848, guid: c9987513481982b4da5422edf0acd5c0, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 0f083b6109f3b470abe9984e69787c95, type: 2}
+    - target: {fileID: 3626916397498700004, guid: c9987513481982b4da5422edf0acd5c0, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7e7589a8f056a714ab824f8c84e2ecfe, type: 2}
     - target: {fileID: 7878350319992209165, guid: c9987513481982b4da5422edf0acd5c0, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7
@@ -2878,6 +2920,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Torch (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 1160356261127867848, guid: c9987513481982b4da5422edf0acd5c0, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 0f083b6109f3b470abe9984e69787c95, type: 2}
+    - target: {fileID: 3626916397498700004, guid: c9987513481982b4da5422edf0acd5c0, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7e7589a8f056a714ab824f8c84e2ecfe, type: 2}
     - target: {fileID: 7878350319992209165, guid: c9987513481982b4da5422edf0acd5c0, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.5
@@ -3196,6 +3246,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Torch (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 1160356261127867848, guid: c9987513481982b4da5422edf0acd5c0, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 0f083b6109f3b470abe9984e69787c95, type: 2}
+    - target: {fileID: 3626916397498700004, guid: c9987513481982b4da5422edf0acd5c0, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7e7589a8f056a714ab824f8c84e2ecfe, type: 2}
     - target: {fileID: 7878350319992209165, guid: c9987513481982b4da5422edf0acd5c0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.05
@@ -3432,6 +3490,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Torch (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 1160356261127867848, guid: c9987513481982b4da5422edf0acd5c0, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 0f083b6109f3b470abe9984e69787c95, type: 2}
+    - target: {fileID: 3626916397498700004, guid: c9987513481982b4da5422edf0acd5c0, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7e7589a8f056a714ab824f8c84e2ecfe, type: 2}
     - target: {fileID: 7878350319992209165, guid: c9987513481982b4da5422edf0acd5c0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3
@@ -3588,7 +3654,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arrowPrefab: {fileID: 0}
   shootButton: 111
-  shootForce: 20
+  shootCooldown: 1
 --- !u!50 &1757706520
 Rigidbody2D:
   serializedVersion: 4
@@ -3633,6 +3699,7 @@ MonoBehaviour:
   downButton: 107
   leftButton: 106
   rightButton: 108
+  lastFacingDirection: {x: 1, y: 0}
 --- !u!58 &1757706524
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -4492,6 +4559,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Torch (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 1160356261127867848, guid: c9987513481982b4da5422edf0acd5c0, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 0f083b6109f3b470abe9984e69787c95, type: 2}
+    - target: {fileID: 3626916397498700004, guid: c9987513481982b4da5422edf0acd5c0, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7e7589a8f056a714ab824f8c84e2ecfe, type: 2}
     - target: {fileID: 7878350319992209165, guid: c9987513481982b4da5422edf0acd5c0, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3
@@ -24009,6 +24084,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Torch (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 1160356261127867848, guid: c9987513481982b4da5422edf0acd5c0, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 0f083b6109f3b470abe9984e69787c95, type: 2}
+    - target: {fileID: 3626916397498700004, guid: c9987513481982b4da5422edf0acd5c0, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7e7589a8f056a714ab824f8c84e2ecfe, type: 2}
     - target: {fileID: 7878350319992209165, guid: c9987513481982b4da5422edf0acd5c0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3
