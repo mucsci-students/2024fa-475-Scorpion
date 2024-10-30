@@ -41,11 +41,17 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Default
-    uniqueID: 0
+  - name: Floor
+    uniqueID: 3050443421
     locked: 0
   - name: Decals
     uniqueID: 362669747
+    locked: 0
+  - name: Walls
+    uniqueID: 2215011697
+    locked: 0
+  - name: Default
+    uniqueID: 0
     locked: 0
   - name: Player
     uniqueID: 431133389
