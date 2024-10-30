@@ -47,6 +47,6 @@ MonoBehaviour:
   enemyPrefabs:
   - {fileID: 7561539813495933605, guid: d6b93382f6a624d0c9324312959cbd49, type: 3}
   probabilityWeights: 01000000
-  chanceOfNoSpawn: 0
+  chanceOfNoSpawn: 1
   targets: []
   cam: {fileID: 0}
