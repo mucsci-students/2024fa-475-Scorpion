@@ -5,13 +5,15 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float moveSpeed = 5f; // Speed of the player
-    public KeyCode upButton = KeyCode.W;      // Button for moving up
-    public KeyCode downButton = KeyCode.S;    // Button for moving down
-    public KeyCode leftButton = KeyCode.A;    // Button for moving left
-    public KeyCode rightButton = KeyCode.D;   // Button for moving right
+    public float moveSpeed = 5f;
+    public KeyCode upButton = KeyCode.W;
+    public KeyCode downButton = KeyCode.S;
+    public KeyCode leftButton = KeyCode.A;
+    public KeyCode rightButton = KeyCode.D;
 
     private Rigidbody2D rb;
+    [HideInInspector]
+    public Vector2 lastFacingDirection = Vector2.right; // Default facing direction
 
     void Start()
     {
@@ -27,7 +29,6 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector2 movement = Vector2.zero;
 
-        // Check for movement input
         if (Input.GetKey(upButton))
             movement.y += 1;
         if (Input.GetKey(downButton))
@@ -37,19 +38,23 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(rightButton))
             movement.x += 1;
 
-        // Normalize the movement vector to avoid faster diagonal movement
         if (movement != Vector2.zero)
         {
             movement.Normalize();
             rb.velocity = movement * moveSpeed;
 
-            // Rotate the player to face the direction of movement
-            float angle = Mathf.Atan2(movement.y, movement.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+            // Update lastFacingDirection every frame if there's movement
+            lastFacingDirection = movement;
+
+            // Flip the player only on the X-axis when moving left or right
+            if (movement.x != 0)
+            {
+                transform.localScale = new Vector3(Mathf.Sign(movement.x), 1, 1);
+            }
         }
         else
         {
-            rb.velocity = Vector2.zero; // Stop the player if no movement input
+            rb.velocity = Vector2.zero;
         }
     }
 }

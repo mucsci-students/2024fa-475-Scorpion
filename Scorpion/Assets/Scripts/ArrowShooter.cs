@@ -7,15 +7,24 @@ public class ArrowShooter : MonoBehaviour
 {
     public GameObject arrowPrefab; // Reference to the arrow prefab
     public KeyCode shootButton = KeyCode.Space; // Button to shoot
-    public float shootForce = 20f; // Force applied to the arrow
-    private float shootCooldown = 1f; // Time between shots
+    public float shootCooldown = 0.5f; // Time between shots
     private float lastShootTime = 0f; // Last time the player shot an arrow
+
+    private PlayerMovement playerMovement;
+    private Vector2 shootingDirection;
+
+    void Start()
+    {
+        playerMovement = GetComponent<PlayerMovement>();
+        shootingDirection = playerMovement.lastFacingDirection; // Initialize with the default facing direction
+    }
 
     void Update()
     {
-        // Check for shooting input
         if (Input.GetKey(shootButton) && Time.time > lastShootTime + shootCooldown)
         {
+            // Update the shooting direction from the latest facing direction every frame while shooting
+            shootingDirection = playerMovement.lastFacingDirection;
             ShootArrow();
             lastShootTime = Time.time; // Update last shoot time
         }
@@ -24,10 +33,14 @@ public class ArrowShooter : MonoBehaviour
     void ShootArrow()
     {
         // Instantiate the arrow prefab
-        GameObject arrow = Instantiate(arrowPrefab, transform.position, transform.rotation);
-        Rigidbody2D rb = arrow.GetComponent<Rigidbody2D>();
+        GameObject arrow = Instantiate(arrowPrefab, transform.position, Quaternion.identity);
 
-        // Set the arrow's velocity based on the player's facing direction
-        rb.velocity = transform.right * shootForce;
+        // Get the Arrow component and set its direction
+        Arrow arrowComponent = arrow.GetComponent<Arrow>();
+        arrowComponent.SetDirection(shootingDirection);
+
+        // Rotate the arrow to match the shooting direction
+        float angle = Mathf.Atan2(shootingDirection.y, shootingDirection.x) * Mathf.Rad2Deg;
+        arrow.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
     }
 }

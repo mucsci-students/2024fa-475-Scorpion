@@ -7,13 +7,21 @@ public class Arrow : MonoBehaviour
     public float speed = 10f; // Speed of the arrow
     public float destroyAfter = 5f; // Time before the arrow disappears if it doesn’t hit anything
     public int damageAmount = 1; // Damage amount the arrow deals
+
     private Rigidbody2D rb;
+    private Vector2 direction; // Direction of the arrow
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        rb.velocity = transform.right * speed; // Initial movement of the arrow
+        rb.velocity = direction * speed; // Set the initial movement of the arrow
         Destroy(gameObject, destroyAfter); // Destroy after a set time if no collision occurs
+    }
+
+    // Method to set the direction of the arrow
+    public void SetDirection(Vector2 shootDirection)
+    {
+        direction = shootDirection.normalized; // Set and normalize the direction
     }
 
     void OnTriggerEnter2D(Collider2D other)

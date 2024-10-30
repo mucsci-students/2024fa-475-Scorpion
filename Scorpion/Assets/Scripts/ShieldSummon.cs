@@ -4,41 +4,51 @@ using UnityEngine;
 
 public class ShieldSummon : MonoBehaviour
 {
-    public GameObject shieldPrefab;          // Assign your shield GameObject prefab here
-    public KeyCode summonButton = KeyCode.E; // Key to summon the shield
+    public GameObject shieldPrefab; // Reference to the shield prefab
+    public KeyCode shieldButton = KeyCode.LeftShift; // Button to activate the shield
+    public Vector2 shieldOffset = new Vector2(1f, 0f); // Offset to position shield in front of player
 
-    private GameObject currentShield; // Reference to the current shield instance
+    private GameObject shieldInstance; // Instance of the shield object
+    private PlayerMovement playerMovement; // Reference to player movement to get direction
+
+    void Start()
+    {
+        playerMovement = GetComponent<PlayerMovement>(); // Get the player movement component
+    }
 
     void Update()
     {
-        // Check if the summon button is pressed
-        if (Input.GetKeyDown(summonButton))
+        // Check if the shield button is being held down
+        if (Input.GetKey(shieldButton))
         {
-            SummonShield();
+            if (shieldInstance == null)
+            {
+                // Instantiate the shield if it's not already active
+                shieldInstance = Instantiate(shieldPrefab, transform.position, Quaternion.identity);
+                shieldInstance.transform.parent = transform; // Make the shield follow the player
+            }
+
+            // Update shield position based on player's facing direction
+            UpdateShieldPosition();
         }
-        // Check if the summon button is released
-        else if (Input.GetKeyUp(summonButton))
+        else
         {
-            DestroyShield();
+            // Destroy the shield if the button is released
+            if (shieldInstance != null)
+            {
+                Destroy(shieldInstance);
+            }
         }
     }
 
-    void SummonShield()
+    void UpdateShieldPosition()
     {
-        // Instantiate the shield at the player's position
-        currentShield = Instantiate(shieldPrefab, transform.position, Quaternion.identity);
+        // Position the shield in front of the player based on lastFacingDirection
+        Vector2 shieldPosition = (Vector2)transform.position + playerMovement.lastFacingDirection * shieldOffset.magnitude;
+        shieldInstance.transform.position = shieldPosition;
 
-        // Initialize the shield with the player's transform
-        Shield shieldScript = currentShield.GetComponent<Shield>();
-        shieldScript.Initialize(transform);
-    }
-
-    void DestroyShield()
-    {
-        if (currentShield != null)
-        {
-            Destroy(currentShield); // Destroy the current shield instance
-            currentShield = null;   // Reset the reference
-        }
+        // Rotate shield to face the direction the player is facing
+        float angle = Mathf.Atan2(playerMovement.lastFacingDirection.y, playerMovement.lastFacingDirection.x) * Mathf.Rad2Deg;
+        shieldInstance.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
     }
 }
