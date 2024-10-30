@@ -21,15 +21,15 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Main
-  m_Shader: {fileID: -6465566751694194690, guid: f43243d562e134a4d920a9d904e91521, type: 3}
+  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
+  m_ValidKeywords: []
+  m_InvalidKeywords:
   - _GRADING_CHROMA
+  - _LUM_GRADING_MAX
   - _LUT_SIZE_X32
   - _SMOOTH
-  m_InvalidKeywords:
-  - _LUM_GRADING_MAX
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -40,6 +40,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Lut:
         m_Texture: {fileID: 2800000, guid: 2fd62d8feb3b336408b10232b2ffde36, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -62,6 +66,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - PixelSnap: 0
+    - _EnableExternalAlpha: 0
     - _GRADING: 0
     - _Grades: 7
     - _LUM_GRADING: 0
@@ -71,5 +77,8 @@ Material:
     - _SMOOTH: 1
     - _Texel_Size: 0.04
     - _Z_OFFSET: 0
-    m_Colors: []
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
