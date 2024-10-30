@@ -12,7 +12,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private GameObject cam;
 
     private int totalProbabilities = 0;
-    private float triggerRadius = 7f; // how close the camera should be to trigger the spawner
+    private float triggerRadius = 10f; // how close the camera should be to trigger the spawner
 
     void Start()
     {
