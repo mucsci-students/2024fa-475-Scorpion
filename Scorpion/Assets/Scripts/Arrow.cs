@@ -7,6 +7,7 @@ public class Arrow : MonoBehaviour
     public float speed = 10f; // Speed of the arrow
     public float destroyAfter = 5f; // Time before the arrow disappears if it doesn’t hit anything
     public int damageAmount = 1; // Damage amount the arrow deals
+    public List<string> enemyTags;
 
     private Rigidbody2D rb;
     private Vector2 direction; // Direction of the arrow
@@ -38,24 +39,23 @@ public class Arrow : MonoBehaviour
 
             Debug.Log("Arrow hit the shield, reversed direction, and flipped sprite.");
         }
-        else if (other.CompareTag("Enemy"))
+        else
         {
             // Apply damage if the arrow hits an enemy
             Health enemyHealth = other.GetComponent<Health>();
             if (enemyHealth != null)
             {
-                enemyHealth.TakeDamage(damageAmount);
+                enemyHealth.TakeDamage(damageAmount, enemyTags);
                 Debug.Log("Arrow hit an enemy and dealt " + damageAmount + " damage.");
+                Destroy (gameObject);
             }
-
-            // Destroy the arrow after hitting the enemy
-            Destroy(gameObject);
+            else
+            {
+                // Destroy the arrow on contact with anything else
+                Debug.Log("Arrow hit: " + other.name + " and was destroyed.");
+                Destroy(gameObject);
+            }
         }
-        else
-        {
-            // Destroy the arrow on contact with anything else
-            Debug.Log("Arrow hit: " + other.name + " and was destroyed.");
-            Destroy(gameObject);
-        }
+        
     }
 }

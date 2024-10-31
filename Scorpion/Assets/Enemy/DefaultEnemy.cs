@@ -21,7 +21,6 @@ public class DefaultEnemy : MonoBehaviour
 
     void Start()
     {
-        
     }
 
     void Update()
@@ -76,7 +75,17 @@ public class DefaultEnemy : MonoBehaviour
     // attack in a certain direction
     public void Attack (Vector3 dir)
     {
-        Instantiate (attackPrefab, transform.position + dir, Quaternion.identity);
+        //Instantiate (attackPrefab, transform.position + dir, Quaternion.identity);
+        // Instantiate the arrow prefab
+        GameObject arrow = Instantiate(attackPrefab, transform.position + dir, Quaternion.identity);
+
+        // Get the Arrow component and set its direction
+        Arrow arrowComponent = arrow.GetComponent<Arrow>();
+        arrowComponent.SetDirection(dir);
+
+        // Rotate the arrow to match the shooting direction
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        arrow.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
     }
 
 }
