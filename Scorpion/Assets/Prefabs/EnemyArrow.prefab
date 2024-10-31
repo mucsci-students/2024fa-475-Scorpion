@@ -101,10 +101,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   destroyAfter: 1e+17
-  damageAmount: 1
-  enemyTags:
-  - Player1
-  - Player2
+  minimalDamage: 20
+  fullDamage: 5
+  validTargets:
+  - Player
+  - Enemy
 --- !u!61 &7879753758170563158
 BoxCollider2D:
   m_ObjectHideFlags: 0

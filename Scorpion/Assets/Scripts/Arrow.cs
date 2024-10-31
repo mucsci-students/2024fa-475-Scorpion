@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Arrow : MonoBehaviour
 {
     public float speed = 10f;               // Speed of the arrow
@@ -30,8 +31,10 @@ public class Arrow : MonoBehaviour
         direction = shootDirection.normalized; // Set and normalize the direction
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    void OnCollisionEnter2D(Collision2D collision)
     {
+        GameObject other = collision.gameObject;
+
         if (other.CompareTag("Shield"))
         {
             // Reverse the arrow's direction by flipping its velocity
@@ -67,3 +70,4 @@ public class Arrow : MonoBehaviour
         }
     }
 }
+

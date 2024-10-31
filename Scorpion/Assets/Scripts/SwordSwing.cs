@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class SwordSwing : MonoBehaviour
 {
-    public GameObject hitboxPrefab; // The invisible hitbox prefab
-    public KeyCode swingButton = KeyCode.Z; // Button to swing the sword
-    public float swingDuration = 0.5f; // Duration the player is frozen
-    public int damageAmount = 1; // Damage dealt to enemies in the hitbox
-    public Vector2 hitboxOffset = new Vector2(1f, 0f); // Offset in front of the player
+    public GameObject hitboxPrefab; 
+    public KeyCode swingButton = KeyCode.Z; 
+    public float swingDuration = 0.5f; 
+    public int damageAmount = 1; 
+    public Vector2 hitboxOffset = new Vector2(1f, 0f); 
 
-    private PlayerMovement playerMovement; // Reference to the player movement script
-    private bool isSwinging = false; // Checks if the player is currently swinging
+    private PlayerMovement playerMovement; 
+    private bool isSwinging = false; 
 
     void Start()
     {
@@ -33,11 +33,10 @@ public class SwordSwing : MonoBehaviour
         // Stop player movement during the swing
         playerMovement.enabled = false;
 
-        // Instantiate the hitbox in front of the player based on lastFacingDirection
+        
         Vector2 spawnPosition = (Vector2)transform.position + playerMovement.lastFacingDirection * hitboxOffset.magnitude;
         GameObject hitbox = Instantiate(hitboxPrefab, spawnPosition, Quaternion.identity);
 
-        // Rotate the hitbox to face the player's last direction
         float angle = Mathf.Atan2(playerMovement.lastFacingDirection.y, playerMovement.lastFacingDirection.x) * Mathf.Rad2Deg;
         hitbox.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
@@ -46,6 +45,13 @@ public class SwordSwing : MonoBehaviour
         if (swordHitbox != null)
         {
             swordHitbox.DamageAmount = damageAmount;
+        }
+
+        // Ensure the hitbox has a Collider2D component set for collision
+        Collider2D collider = hitbox.GetComponent<Collider2D>();
+        if (collider != null)
+        {
+            collider.isTrigger = false; // Ensure it's set for collision, not trigger
         }
 
         // Wait for the swing duration
