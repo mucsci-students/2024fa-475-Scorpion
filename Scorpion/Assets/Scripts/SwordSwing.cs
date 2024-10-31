@@ -4,56 +4,59 @@ using UnityEngine;
 
 public class SwordSwing : MonoBehaviour
 {
-    public GameObject swordPrefab;         // Assign your sword GameObject prefab here
-    public KeyCode swingButton = KeyCode.Space;  // Customize this to your desired swing button
-    public float spawnDistance = 1f;       // Distance in front of the player where sword appears
-    public float swingDuration = 0.2f;     // Duration the sword remains visible
-    public float cooldownTime = 1f;        // Cooldown time between swings
-    public int damageAmount = 10;          // Amount of damage dealt per swing
+    public GameObject hitboxPrefab; // The invisible hitbox prefab
+    public KeyCode swingButton = KeyCode.Z; // Button to swing the sword
+    public float swingDuration = 0.5f; // Duration the player is frozen
+    public int damageAmount = 1; // Damage dealt to enemies in the hitbox
+    public Vector2 hitboxOffset = new Vector2(1f, 0f); // Offset in front of the player
 
-    private GameObject activeSword;
-    private bool isSwinging = false;
-    private float nextSwingTime = 0f;
+    private PlayerMovement playerMovement; // Reference to the player movement script
+    private bool isSwinging = false; // Checks if the player is currently swinging
+
+    void Start()
+    {
+        playerMovement = GetComponent<PlayerMovement>(); // Get the player movement script
+    }
 
     void Update()
     {
-        // Check if the swing button is pressed and if the cooldown period has passed
-        if (Input.GetKeyDown(swingButton) && Time.time >= nextSwingTime)
+        if (Input.GetKeyDown(swingButton) && !isSwinging)
         {
-            SwingSword();
-            nextSwingTime = Time.time + cooldownTime; // Set next allowed swing time
+            StartCoroutine(SwingSword());
         }
     }
 
-    void SwingSword()
+    IEnumerator SwingSword()
     {
-        // Calculate spawn position based on player's facing direction
-        Vector3 spawnPosition = transform.position + transform.right * spawnDistance;
+        isSwinging = true;
 
-        // Spawn the sword prefab and orient it based on player's rotation
-        activeSword = Instantiate(swordPrefab, spawnPosition, transform.rotation);
+        // Stop player movement during the swing
+        playerMovement.enabled = false;
 
-        // Add collision handling script to the sword prefab
-        SwordCollider swordCollider = activeSword.AddComponent<SwordCollider>();
-        swordCollider.damageAmount = damageAmount;
+        // Instantiate the hitbox in front of the player based on lastFacingDirection
+        Vector2 spawnPosition = (Vector2)transform.position + playerMovement.lastFacingDirection * hitboxOffset.magnitude;
+        GameObject hitbox = Instantiate(hitboxPrefab, spawnPosition, Quaternion.identity);
 
-        // Destroy the sword after a short duration to simulate a swing
-        Destroy(activeSword, swingDuration);
-    }
-}
+        // Rotate the hitbox to face the player's last direction
+        float angle = Mathf.Atan2(playerMovement.lastFacingDirection.y, playerMovement.lastFacingDirection.x) * Mathf.Rad2Deg;
+        hitbox.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
-// Separate class for handling sword collision
-public class SwordCollider : MonoBehaviour
-{
-    public int damageAmount;
-
-    void OnTriggerEnter2D(Collider2D other)  // Use OnTriggerEnter if using 3D physics
-    {
-        // Check if the other object has a Health component
-        Health health = other.GetComponent<Health>();
-        if (health != null)
+        // Apply damage to any enemies in the hitbox
+        SwordHitbox swordHitbox = hitbox.GetComponent<SwordHitbox>();
+        if (swordHitbox != null)
         {
-            health.TakeDamage(damageAmount);  // Apply damage
+            swordHitbox.DamageAmount = damageAmount;
         }
+
+        // Wait for the swing duration
+        yield return new WaitForSeconds(swingDuration);
+
+        // Enable player movement again
+        playerMovement.enabled = true;
+
+        // Destroy the hitbox
+        Destroy(hitbox);
+
+        isSwinging = false;
     }
 }

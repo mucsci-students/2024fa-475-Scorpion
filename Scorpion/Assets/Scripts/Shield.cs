@@ -32,7 +32,7 @@ public class Shield : MonoBehaviour
         {
             // Block the projectile or enemy (add your blocking logic here)
             Debug.Log("Blocked an incoming object: " + other.name);
-            Destroy(other.gameObject); // Destroy the incoming object, if desired
+          
         }
     }
 }

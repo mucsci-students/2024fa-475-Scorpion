@@ -2,20 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Arrow : MonoBehaviour
 {
-    public float speed = 10f; // Speed of the arrow
-    public float destroyAfter = 5f; // Time before the arrow disappears if it doesn’t hit anything
-    public int damageAmount = 1; // Damage amount the arrow deals
+    public float speed = 10f;               // Speed of the arrow
+    public float destroyAfter = 5f;         // Time before the arrow disappears if it doesn’t hit anything
+    public int minimalDamage = 2;           // Damage amount outside full damage zone
+    public int fullDamage = 5;              // Damage amount inside full damage zone
+    public List<string> validTargets = new List<string> { "Player", "Enemy" }; // Tags for valid targets
 
     private Rigidbody2D rb;
-    private Vector2 direction; // Direction of the arrow
+    private Vector2 direction;               // Direction of the arrow
+    private PlayerCombat playerCombat;       // Reference to player combat script
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        rb.velocity = direction * speed; // Set the initial movement of the arrow
-        Destroy(gameObject, destroyAfter); // Destroy after a set time if no collision occurs
+        rb.velocity = direction * speed;     // Set the initial movement of the arrow
+        Destroy(gameObject, destroyAfter);    // Destroy after a set time if no collision occurs
+
+        // Locate the player combat script to check if in full damage zone
+        playerCombat = FindObjectOfType<PlayerCombat>();
     }
 
     // Method to set the direction of the arrow
@@ -38,24 +45,25 @@ public class Arrow : MonoBehaviour
 
             Debug.Log("Arrow hit the shield, reversed direction, and flipped sprite.");
         }
-        else if (other.CompareTag("Enemy"))
+        else if (validTargets.Contains(other.tag))
         {
-            // Apply damage if the arrow hits an enemy
-            Health enemyHealth = other.GetComponent<Health>();
-            if (enemyHealth != null)
+            // Apply damage based on whether the player is in the full damage zone
+            int damageAmount = playerCombat != null && playerCombat.isInFullDamageZone ? fullDamage : minimalDamage;
+
+            Health targetHealth = other.GetComponent<Health>();
+            if (targetHealth != null)
             {
-                enemyHealth.TakeDamage(damageAmount);
-                Debug.Log("Arrow hit an enemy and dealt " + damageAmount + " damage.");
+                targetHealth.TakeDamage(damageAmount);
+                Debug.Log("Arrow hit " + other.name + " and dealt " + damageAmount + " damage.");
             }
 
-            // Destroy the arrow after hitting the enemy
+            // Destroy the arrow after hitting a valid target
             Destroy(gameObject);
         }
         else
         {
-            // Destroy the arrow on contact with anything else
-            Debug.Log("Arrow hit: " + other.name + " and was destroyed.");
-            Destroy(gameObject);
+            // Ignore non-target hits
+            Debug.Log("Arrow hit non-target object: " + other.name + " and ignored it.");
         }
     }
 }
