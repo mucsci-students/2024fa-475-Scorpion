@@ -26,7 +26,7 @@ public class Health : MonoBehaviour
         currHealth -= amt;
         if (currHealth <= 0)
         {
-            Destroy (gameObject);
+            Die ();
             return false;
         }
         return true;
@@ -46,5 +46,10 @@ public class Health : MonoBehaviour
         currHealth += amt;
         if (currHealth > maxHealth)
             currHealth = maxHealth;
+    }
+
+    public void Die ()
+    {
+        Destroy (gameObject);
     }
 }

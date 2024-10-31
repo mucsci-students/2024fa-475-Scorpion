@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class Arrow : MonoBehaviour
 {
     public float speed = 10f;               // Speed of the arrow
@@ -19,7 +18,7 @@ public class Arrow : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         rb.velocity = direction * speed;     // Set the initial movement of the arrow
-        Destroy(gameObject, destroyAfter);    // Destroy after a set time if no collision occurs
+        Destroy(gameObject, destroyAfter);   // Destroy after a set time if no collision occurs
 
         // Locate the player combat script to check if in full damage zone
         playerCombat = FindObjectOfType<PlayerCombat>();
@@ -62,8 +61,9 @@ public class Arrow : MonoBehaviour
         }
         else
         {
-            // Ignore non-target hits
-            Debug.Log("Arrow hit non-target object: " + other.name + " and ignored it.");
+            // Destroy the arrow on contact with anything else
+            Debug.Log("Arrow hit non-target object: " + other.name + " and was destroyed.");
+            Destroy(gameObject);
         }
     }
 }
