@@ -364,7 +364,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arrowPrefab: {fileID: 8126352406112777003, guid: ae958466d628b49008625c71f6542acb, type: 3}
-  shootButton: 96
+  shootButton: 102
   shootCooldown: 1
 --- !u!114 &129876306
 MonoBehaviour:
@@ -413,7 +413,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.0625, y: 0.25}
