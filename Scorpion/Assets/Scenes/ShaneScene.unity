@@ -573,7 +573,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd727ea10c5634dda87d3d663ff56900, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arrowPrefab: {fileID: 1433020566}
+  arrowPrefab: {fileID: 8126352406112777003, guid: ae958466d628b49008625c71f6542acb, type: 3}
   shootButton: 102
   shootCooldown: 1
 --- !u!114 &933765762
@@ -650,8 +650,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0625, y: 0.5625}
-  m_Size: {x: 1, y: 1.125}
+  m_Offset: {x: -0.0625, y: 0.25}
+  m_Size: {x: 0.5, y: 0.5}
   m_Direction: 0
 --- !u!114 &933765768
 MonoBehaviour:
@@ -792,6 +792,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 635376929642362100, guid: d6b93382f6a624d0c9324312959cbd49, type: 3}
+      propertyPath: attackPrefab
+      value: 
+      objectReference: {fileID: 8126352406112777003, guid: 83be232b21f03402ea912107de9995be, type: 3}
     - target: {fileID: 635376929642362100, guid: d6b93382f6a624d0c9324312959cbd49, type: 3}
       propertyPath: targets.Array.size
       value: 1
