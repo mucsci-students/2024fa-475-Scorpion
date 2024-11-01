@@ -14,7 +14,7 @@ public class DoorController : MonoBehaviour
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        spriteRenderer.sprite = closedSprite;
+        //spriteRenderer.sprite = closedSprite;
         doorCollider = GetComponent<BoxCollider2D>();
         doorCollider.isTrigger = false; // Set the collider to trigger mode
     }

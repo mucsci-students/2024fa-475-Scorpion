@@ -10,12 +10,17 @@ public class Pressureplate : MonoBehaviour
     public bool playTwoPlate = false;
     private bool isActive = false;
     private Renderer plateRenderer;
+    private SpriteRenderer spriteRenderer;
     public Color activeColor = Color.blue;
     private Color originalColor;
+    public Sprite openSprite;
+    private Sprite closedSprite;
 
     // Start is called before the first frame update
     void Start()
     {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        closedSprite = spriteRenderer.sprite;
         plateRenderer = GetComponent<Renderer>();
         originalColor = plateRenderer.material.color;
     }
@@ -25,16 +30,19 @@ public class Pressureplate : MonoBehaviour
     {
         if (inContactP1 && playOnePlate){
             plateRenderer.material.color = activeColor;
+            spriteRenderer.sprite = openSprite;
             isActive = true;
         }
         
         else if (inContactP2 && playTwoPlate){
             plateRenderer.material.color = activeColor;
+            spriteRenderer.sprite = openSprite;
             isActive = true;
         }
         else {
             isActive = false;
             plateRenderer.material.color = originalColor;
+            spriteRenderer.sprite = closedSprite;
         }
     }
 
