@@ -14,10 +14,12 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     [HideInInspector]
     public Vector2 lastFacingDirection = Vector2.right; // Default facing direction
+    private SpriteRenderer rend;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        rend = GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -49,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
             // Flip the player only on the X-axis when moving left or right
             if (movement.x != 0)
             {
-                transform.localScale = new Vector3(Mathf.Sign(movement.x), 1, 1);
+                rend.flipX = movement.x < 0;
             }
         }
         else

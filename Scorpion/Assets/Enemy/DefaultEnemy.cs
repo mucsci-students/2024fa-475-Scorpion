@@ -13,6 +13,7 @@ public class DefaultEnemy : MonoBehaviour
     public List<GameObject> targets; // TODO: make list of Vector3 instead...?
 
     private float retargetCooldown = 0.5f;
+    private Rigidbody2D rb;
 
     private float targetDist = float.PositiveInfinity;
     private float timeOfLastAttack = 0f;
@@ -21,6 +22,7 @@ public class DefaultEnemy : MonoBehaviour
 
     void Start()
     {
+        rb = GetComponent<Rigidbody2D> ();
     }
 
     void Update()
@@ -69,7 +71,7 @@ public class DefaultEnemy : MonoBehaviour
     // advance in a certain direction
     public void Move (Vector3 dir)
     {
-        transform.position += dir * speed * Time.deltaTime;
+        rb.velocity = dir * speed;
     }
 
     // attack in a certain direction

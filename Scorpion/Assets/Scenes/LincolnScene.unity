@@ -233,6 +233,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 7e7589a8f056a714ab824f8c84e2ecfe, type: 2}
     - target: {fileID: 7878350319992209165, guid: 61ed7a01b532c17489ff08570db6ce7f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878350319992209165, guid: 61ed7a01b532c17489ff08570db6ce7f, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878350319992209165, guid: 61ed7a01b532c17489ff08570db6ce7f, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878350319992209165, guid: 61ed7a01b532c17489ff08570db6ce7f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5
       objectReference: {fileID: 0}
@@ -3617,6 +3629,9 @@ PrefabInstance:
       addedObject: {fileID: 1757706528}
     - targetCorrespondingSourceObject: {fileID: -2253911629886400664, guid: 61ed7a01b532c17489ff08570db6ce7f, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 1757706529}
+    - targetCorrespondingSourceObject: {fileID: -2253911629886400664, guid: 61ed7a01b532c17489ff08570db6ce7f, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 1757706524}
     - targetCorrespondingSourceObject: {fileID: -2253911629886400664, guid: 61ed7a01b532c17489ff08570db6ce7f, type: 3}
       insertIndex: -1
@@ -3755,6 +3770,23 @@ MonoBehaviour:
   shieldPrefab: {fileID: 2904118639444167270, guid: 75318fd8275564272833646c6e50d645, type: 3}
   shieldButton: 92
   shieldOffset: {x: 1, y: 0}
+--- !u!114 &1757706529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1757706517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efa02c87a09e64252bff5a4b85c43465, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitboxPrefab: {fileID: 0}
+  swingButton: 8
+  swingDuration: 0.2
+  damageAmount: 20
+  hitboxOffset: {x: 1, y: 0}
 --- !u!1 &1785460750
 GameObject:
   m_ObjectHideFlags: 0
