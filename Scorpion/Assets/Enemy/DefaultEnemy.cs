@@ -59,11 +59,14 @@ public class DefaultEnemy : MonoBehaviour
         }
         foreach (GameObject t in targets)
         {
-            float tDist = Mathf.Abs((t.transform.position - transform.position).magnitude);
-            if (tDist < targetDist)
+            if (t != null) // TODO: remove such null objects from the list instead of just skipping them here
             {
-                currTarget = t;
-                targetDist = tDist;
+                float tDist = Mathf.Abs((t.transform.position - transform.position).magnitude);
+                if (tDist < targetDist)
+                {
+                    currTarget = t;
+                    targetDist = tDist;
+                }
             }
         }
     }
