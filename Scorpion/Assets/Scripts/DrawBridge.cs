@@ -18,6 +18,7 @@ public class DrawBridge : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = closedSprite;
         doorCollider = GetComponent<BoxCollider2D>();
+        doorCollider.isTrigger = true;
     }
 
     void Update()
@@ -28,7 +29,8 @@ public class DrawBridge : MonoBehaviour
             {
                 isOpen = true;
                 spriteRenderer.sprite = openSprite;
-                doorCollider.enabled = true; // Disable the collider to allow passage
+                //doorCollider.enabled = true; // Disable the collider to allow passage
+                doorCollider.isTrigger = false;
             }
         }
         else
@@ -37,7 +39,8 @@ public class DrawBridge : MonoBehaviour
             {
                 isOpen = false;
                 spriteRenderer.sprite = closedSprite;
-                doorCollider.enabled = false; // Enable the collider to block passage
+                doorCollider.isTrigger = true;
+                //doorCollider.enabled = false; // Enable the collider to block passage
             }
         }
     }
