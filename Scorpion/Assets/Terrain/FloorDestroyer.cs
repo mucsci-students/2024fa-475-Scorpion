@@ -1,0 +1,83 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Tilemaps;
+
+public class FloorDestroyer : MonoBehaviour
+{
+    [SerializeField] private int leftmostTileX; // the x pos of the leftmost tile to destroy
+    [SerializeField] private int rightmostTileX; // the x pos of the rightmost tile
+    [SerializeField] private int nextRowY; // the y pos of the next row to destroy (starting with the 1st)
+    [SerializeField] private GameObject fallingTilePrefab;
+    [SerializeField] private GameObject lavaLightPrefab;
+    [SerializeField] private Camera cam;
+
+    private float timeOfLastDestroy = 0f;
+    private float timeBetweenDestroys = 0.2f;
+
+    private Tilemap floor;
+    private float destroyRadius = 10f; // how far behind the camera must be to destroy tiles
+
+    private List<Vector2> locToDestroySoon = new List<Vector2> (); // a list of locations that will be randomly destroyed over time
+
+    void Start()
+    {
+        floor = GetComponent<Tilemap> ();
+    }
+
+    void Update()
+    {
+        // continuously destroy rows of tiles as the camera moves
+        if ((float) nextRowY + destroyRadius < cam.transform.position.y)
+        {
+            // destroy all remaining tiles in the last row
+            DestroyTiles (locToDestroySoon);
+            // add a new row of tiles to destroy
+            locToDestroySoon = new List<Vector2> ();
+            for (int x = leftmostTileX; x <= rightmostTileX; ++x)
+            {
+                locToDestroySoon.Add (new Vector2 (x, nextRowY));
+            }
+            nextRowY += 1;
+        }
+        else if (timeOfLastDestroy + timeBetweenDestroys < Time.time)
+        {
+            // destroy a random few tiles in the current row
+            List<Vector2> locations = new List<Vector2> ();
+            int n = Random.Range (1, 4);
+            for (int i = 0; i < n && locToDestroySoon.Count > 0; ++i)
+            {
+                int j = Random.Range (0, locToDestroySoon.Count);
+                locations.Add (locToDestroySoon[j]);
+                locToDestroySoon.RemoveAt(j);
+            }
+            DestroyTiles (locations);
+            timeOfLastDestroy = Time.time;
+        }
+    }
+
+    // destroys a bunch of tiles, given a list of their Vector2
+    // the Vector2 of a tile is the integer coordinates of its lower left hand corner
+    public void DestroyTiles (List<Vector2> locations)
+    {
+        foreach (Vector2 loc in locations)
+        {
+            Vector3Int tileCoord = floor.WorldToCell (loc);
+            TileBase tileBase = floor.GetTile (tileCoord);
+            if (tileBase)
+            {
+                GameObject fallingTile = fallingTilePrefab;
+
+                // update the falling tile's sprite
+                TileData tileData = new TileData ();
+                tileBase.GetTileData (tileCoord, floor, ref tileData);
+                fallingTile.GetComponent<SpriteRenderer> ().sprite = tileData.sprite;
+
+                // replace the floor tile with the falling tile
+                floor.SetTile (tileCoord, null);
+                Instantiate (fallingTile, loc + new Vector2 (0.5f, 0.5f), Quaternion.identity, transform);
+                Instantiate (lavaLightPrefab, loc, Quaternion.identity, transform);
+            }
+        }
+    }
+}
