@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// spawns a shield hitbox when key is pressed, keeps it facing the right way, and then deletes it when that key is lifted
 public class ShieldSummon : MonoBehaviour
 {
     public GameObject shieldPrefab; // Reference to the shield prefab
@@ -26,6 +27,7 @@ public class ShieldSummon : MonoBehaviour
                 // Instantiate the shield if it's not already active
                 shieldInstance = Instantiate(shieldPrefab, transform.position + new Vector3 (0f, 0.5f, 0f), Quaternion.identity); // added offset of 0.5 in the y direction --LCC
                 shieldInstance.transform.parent = transform; // Make the shield follow the player
+                shieldInstance.GetComponent<Shield> ().wielder = gameObject;
             }
 
             // Update shield position based on player's facing direction

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
+// spawns an arrow when a key is pressed, facing the correct direction
 public class ArrowShooter : MonoBehaviour
 {
     public GameObject arrowPrefab; // Reference to the arrow prefab

@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
+// moves forward until it hits something, doing damage if it hits something with health, and reversing direction if it hits a shield
 public class Arrow : MonoBehaviour
 {
     public float speed = 10f;               // Speed of the arrow
     public float destroyAfter = 5f;         // Time before the arrow disappears if it doesn't hit anything
-    public int damageAmount = 1;
+    public int damageAmount = 2;
     public List<string> validTargets = new List<string> { "Enemy" }; // Tags for valid targets
 
     private Rigidbody2D rb;

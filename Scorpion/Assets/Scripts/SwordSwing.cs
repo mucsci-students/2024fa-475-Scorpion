@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// spawns a sword hitbox when a key is pressed, tells it how much damage to do, and then deletes after a duration
 public class SwordSwing : MonoBehaviour
 {
     public GameObject hitboxPrefab; 
