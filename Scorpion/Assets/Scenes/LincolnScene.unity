@@ -384,7 +384,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arrowPrefab: {fileID: 8126352406112777003, guid: ae958466d628b49008625c71f6542acb, type: 3}
   shootButton: 49
-  shootCooldown: 0.2
+  shootCooldown: 0.3
 --- !u!114 &129876306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -466,7 +466,7 @@ MonoBehaviour:
   hitboxPrefab: {fileID: 4768776504061575895, guid: 24d6a0215c8fe4a42b8cc955209d9981, type: 3}
   swingButton: 51
   swingDuration: 0.2
-  damageAmount: 20
+  damageAmount: 5
   hitboxOffset: {x: 1, y: 0}
 --- !u!1 &154623648
 GameObject:
@@ -1748,7 +1748,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moving: 0
-  camSpeed: 2
+  camSpeed: 1
   boundHeight: 30
   camTrigger: {fileID: 291922140}
 --- !u!1 &626532213
@@ -10991,7 +10991,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arrowPrefab: {fileID: 8126352406112777003, guid: ae958466d628b49008625c71f6542acb, type: 3}
   shootButton: 56
-  shootCooldown: 0.2
+  shootCooldown: 0.3
 --- !u!50 &1757706520
 Rigidbody2D:
   serializedVersion: 4
@@ -11115,7 +11115,7 @@ MonoBehaviour:
   hitboxPrefab: {fileID: 4768776504061575895, guid: 24d6a0215c8fe4a42b8cc955209d9981, type: 3}
   swingButton: 48
   swingDuration: 0.2
-  damageAmount: 20
+  damageAmount: 5
   hitboxOffset: {x: 1, y: 0}
 --- !u!1 &1785460750
 GameObject:

@@ -7,7 +7,7 @@ public class SwordSwing : MonoBehaviour
     public GameObject hitboxPrefab; 
     public KeyCode swingButton = KeyCode.Z; 
     public float swingDuration = 0.5f; 
-    public int damageAmount = 1; 
+    public int damageAmount = 5; 
     public Vector2 hitboxOffset = new Vector2(1f, 0f); 
 
     private PlayerMovement playerMovement; 

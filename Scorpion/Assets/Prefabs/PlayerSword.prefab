@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6379563483094464470}
   - component: {fileID: -6013892441460791427}
   m_Layer: 7
-  m_Name: Sword
+  m_Name: PlayerSword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -92,6 +92,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 263dcb0e0951345fcb46e858a2050797, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  validTargets:
+  - Enemy
 --- !u!50 &6379563483094464470
 Rigidbody2D:
   serializedVersion: 4

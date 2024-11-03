@@ -5,7 +5,7 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
 
-    [SerializeField] private int maxHealth = 100;
+    [SerializeField] private int maxHealth = 10;
 
     private int currHealth;
 
@@ -24,12 +24,12 @@ public class Health : MonoBehaviour
     public bool TakeDamage (int amt)
     {
         currHealth -= amt;
+        print (gameObject.name + " remaining health: " + currHealth);
         if (currHealth <= 0)
         {
             Die ();
             return false;
         }
-        print (gameObject.name + " remaining health: " + currHealth);
         return true;
     }
 
@@ -38,7 +38,8 @@ public class Health : MonoBehaviour
     {
         if (targets.Contains (gameObject.tag))
             return TakeDamage (amt);
-        return TakeDamage (amt / 2);
+        int halvedAmt = amt / 2;
+        return TakeDamage (halvedAmt * 2 < amt ? halvedAmt + 1 : halvedAmt); // half the damage, rounded up
     }
 
     // heals damage from the object if the object isn't at max health
