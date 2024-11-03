@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3a0f7f597bc34c648eebf69e0e500d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wobbleDuration: 0.5
 --- !u!61 &4827502210530535745
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -10,7 +10,7 @@ public class FallingTile : MonoBehaviour
     private float timeOfLastWobble = 0f;
     private Color currColor = new Color (1f, 1f, 1f, 1f);
 
-    private float wobbleDuration = 1f; // in seconds 
+    public float wobbleDuration = 1f; // in seconds 
     private float timeBetweenWobbles = 0.1f;
     private float fallDuration = 1f;
     private SpriteRenderer rend;
