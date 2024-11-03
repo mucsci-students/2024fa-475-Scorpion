@@ -21,7 +21,7 @@ public class SwordSwing : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(swingButton) && !isSwinging)
+        if (Input.GetKeyDown(swingButton) && !isSwinging && !playerMovement.isAttacking)
         {
             StartCoroutine(SwingSword());
         }
@@ -30,8 +30,10 @@ public class SwordSwing : MonoBehaviour
     IEnumerator SwingSword()
     {
         isSwinging = true;
+        playerMovement.isAttacking = true;
 
-        // Stop player movement during the swing
+        // disabling player movement causes the player to keep moving in the same direction
+        // this is kind of cool, but we might decide to remove this later --LCC
         playerMovement.enabled = false;
 
         
@@ -65,5 +67,6 @@ public class SwordSwing : MonoBehaviour
         Destroy(hitbox);
 
         isSwinging = false;
+        playerMovement.isAttacking = false;
     }
 }
