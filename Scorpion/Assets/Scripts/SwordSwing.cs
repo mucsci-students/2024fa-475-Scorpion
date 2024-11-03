@@ -34,8 +34,8 @@ public class SwordSwing : MonoBehaviour
         playerMovement.enabled = false;
 
         
-        Vector2 spawnPosition = (Vector2)transform.position + playerMovement.lastFacingDirection * hitboxOffset.magnitude;
-        GameObject hitbox = Instantiate(hitboxPrefab, spawnPosition, Quaternion.identity);
+        Vector2 spawnPosition = (Vector2)transform.position + playerMovement.lastFacingDirection * hitboxOffset.magnitude + new Vector2(0f, 0.25f); // offset y pos by 0.5 -- LCC
+        GameObject hitbox = Instantiate(hitboxPrefab, spawnPosition, Quaternion.identity, transform); // made sword swing child of player --LCC
 
         float angle = Mathf.Atan2(playerMovement.lastFacingDirection.y, playerMovement.lastFacingDirection.x) * Mathf.Rad2Deg;
         hitbox.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));

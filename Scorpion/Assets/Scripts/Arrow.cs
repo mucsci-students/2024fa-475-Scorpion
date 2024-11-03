@@ -38,7 +38,7 @@ public class Arrow : MonoBehaviour
         if (other.CompareTag("Shield"))
         {
             // Reverse the arrow's direction by flipping its velocity
-            rb.velocity = -rb.velocity;
+            rb.velocity = -rb.velocity ;
 
             // Flip the sprite horizontally
             Vector3 flippedScale = transform.localScale;

@@ -29,6 +29,7 @@ public class Health : MonoBehaviour
             Die ();
             return false;
         }
+        print (gameObject.name + " remaining health: " + currHealth);
         return true;
     }
 

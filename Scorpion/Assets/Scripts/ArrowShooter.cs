@@ -32,8 +32,8 @@ public class ArrowShooter : MonoBehaviour
 
     void ShootArrow()
     {
-        // Instantiate the arrow prefab
-        GameObject arrow = Instantiate(arrowPrefab, transform.position + (Vector3) shootingDirection, Quaternion.identity);
+        // Instantiate the arrow prefab (added offset of 0.25 in the y)
+        GameObject arrow = Instantiate(arrowPrefab, transform.position + new Vector3 (0f, 0.25f, 0f) + 0.5f * (Vector3) shootingDirection, Quaternion.identity);
 
         // Get the Arrow component and set its direction
         Arrow arrowComponent = arrow.GetComponent<Arrow>();

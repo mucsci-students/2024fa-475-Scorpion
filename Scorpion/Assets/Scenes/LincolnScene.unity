@@ -217,6 +217,10 @@ PrefabInstance:
       value: Player 1
       objectReference: {fileID: 0}
     - target: {fileID: -2253911629886400664, guid: 61ed7a01b532c17489ff08570db6ce7f, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: -2253911629886400664, guid: 61ed7a01b532c17489ff08570db6ce7f, type: 3}
       propertyPath: m_TagString
       value: Player1
       objectReference: {fileID: 0}
@@ -306,6 +310,9 @@ PrefabInstance:
       addedObject: {fileID: 129876303}
     - targetCorrespondingSourceObject: {fileID: -2253911629886400664, guid: 61ed7a01b532c17489ff08570db6ce7f, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 129876312}
+    - targetCorrespondingSourceObject: {fileID: -2253911629886400664, guid: 61ed7a01b532c17489ff08570db6ce7f, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 129876309}
     - targetCorrespondingSourceObject: {fileID: -2253911629886400664, guid: 61ed7a01b532c17489ff08570db6ce7f, type: 3}
       insertIndex: -1
@@ -361,8 +368,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shieldPrefab: {fileID: 2904118639444167270, guid: 75318fd8275564272833646c6e50d645, type: 3}
-  shieldButton: 9
-  shieldOffset: {x: 1, y: 0}
+  shieldButton: 50
+  shieldOffset: {x: 0.5, y: 0}
 --- !u!114 &129876304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -376,8 +383,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arrowPrefab: {fileID: 8126352406112777003, guid: ae958466d628b49008625c71f6542acb, type: 3}
-  shootButton: 102
-  shootCooldown: 1
+  shootButton: 49
+  shootCooldown: 0.2
 --- !u!114 &129876306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -418,7 +425,7 @@ CircleCollider2D:
     m_Bits: 4294967295
   m_ForceReceiveLayers:
     serializedVersion: 2
-    m_Bits: 55
+    m_Bits: 311
   m_ContactCaptureLayers:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -428,7 +435,7 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0625, y: 0.25}
+  m_Offset: {x: 0, y: 0.25}
   serializedVersion: 2
   m_Radius: 0.25
 --- !u!114 &129876310
@@ -443,7 +450,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbfb5b63929054fa39ba66f951e0dc7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 20
+--- !u!114 &129876312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 129876300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efa02c87a09e64252bff5a4b85c43465, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitboxPrefab: {fileID: 4768776504061575895, guid: 24d6a0215c8fe4a42b8cc955209d9981, type: 3}
+  swingButton: 51
+  swingDuration: 0.2
+  damageAmount: 20
+  hitboxOffset: {x: 1, y: 0}
 --- !u!1 &154623648
 GameObject:
   m_ObjectHideFlags: 0
@@ -1661,7 +1685,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -7.86, z: -10}
+  m_LocalPosition: {x: 0, y: -10.71, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10862,6 +10886,10 @@ PrefabInstance:
       value: Player 2
       objectReference: {fileID: 0}
     - target: {fileID: -2253911629886400664, guid: 61ed7a01b532c17489ff08570db6ce7f, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: -2253911629886400664, guid: 61ed7a01b532c17489ff08570db6ce7f, type: 3}
       propertyPath: m_TagString
       value: Player2
       objectReference: {fileID: 0}
@@ -10962,8 +10990,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arrowPrefab: {fileID: 8126352406112777003, guid: ae958466d628b49008625c71f6542acb, type: 3}
-  shootButton: 8
-  shootCooldown: 1
+  shootButton: 56
+  shootCooldown: 0.2
 --- !u!50 &1757706520
 Rigidbody2D:
   serializedVersion: 4
@@ -11031,7 +11059,7 @@ CircleCollider2D:
     m_Bits: 4294967295
   m_ForceReceiveLayers:
     serializedVersion: 2
-    m_Bits: 55
+    m_Bits: 311
   m_ContactCaptureLayers:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -11041,7 +11069,7 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0625, y: 0.25}
+  m_Offset: {x: 0, y: 0.25}
   serializedVersion: 2
   m_Radius: 0.25
 --- !u!114 &1757706525
@@ -11056,7 +11084,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbfb5b63929054fa39ba66f951e0dc7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 20
 --- !u!114 &1757706528
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11070,8 +11098,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shieldPrefab: {fileID: 2904118639444167270, guid: 75318fd8275564272833646c6e50d645, type: 3}
-  shieldButton: 92
-  shieldOffset: {x: 1, y: 0}
+  shieldButton: 57
+  shieldOffset: {x: 0.5, y: 0}
 --- !u!114 &1757706529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11084,8 +11112,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efa02c87a09e64252bff5a4b85c43465, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitboxPrefab: {fileID: 0}
-  swingButton: 8
+  hitboxPrefab: {fileID: 4768776504061575895, guid: 24d6a0215c8fe4a42b8cc955209d9981, type: 3}
+  swingButton: 48
   swingDuration: 0.2
   damageAmount: 20
   hitboxOffset: {x: 1, y: 0}

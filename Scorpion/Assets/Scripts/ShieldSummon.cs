@@ -6,7 +6,7 @@ public class ShieldSummon : MonoBehaviour
 {
     public GameObject shieldPrefab; // Reference to the shield prefab
     public KeyCode shieldButton = KeyCode.LeftShift; // Button to activate the shield
-    public Vector2 shieldOffset = new Vector2(1f, 0f); // Offset to position shield in front of player
+    public Vector2 shieldOffset = new Vector2(0.5f, 0f); // Offset to position shield in front of player
 
     private GameObject shieldInstance; // Instance of the shield object
     private PlayerMovement playerMovement; // Reference to player movement to get direction
@@ -24,7 +24,7 @@ public class ShieldSummon : MonoBehaviour
             if (shieldInstance == null)
             {
                 // Instantiate the shield if it's not already active
-                shieldInstance = Instantiate(shieldPrefab, transform.position, Quaternion.identity);
+                shieldInstance = Instantiate(shieldPrefab, transform.position + new Vector3 (0f, 0.5f, 0f), Quaternion.identity); // added offset of 0.5 in the y direction --LCC
                 shieldInstance.transform.parent = transform; // Make the shield follow the player
             }
 
@@ -45,7 +45,7 @@ public class ShieldSummon : MonoBehaviour
     {
         // Position the shield in front of the player based on lastFacingDirection
         Vector2 shieldPosition = (Vector2)transform.position + playerMovement.lastFacingDirection * shieldOffset.magnitude;
-        shieldInstance.transform.position = shieldPosition;
+        shieldInstance.transform.position = shieldPosition + new Vector2 (0f, 0.5f); // --LCC
 
         // Rotate shield to face the direction the player is facing
         float angle = Mathf.Atan2(playerMovement.lastFacingDirection.y, playerMovement.lastFacingDirection.x) * Mathf.Rad2Deg;
