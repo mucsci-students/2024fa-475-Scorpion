@@ -8,8 +8,7 @@ public class ArrowDamagePowerUp : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player")) 
-        {
+        
             PlayerMovement playerMovement = collision.GetComponent<PlayerMovement>();
             if (playerMovement != null)
             {
@@ -18,4 +17,3 @@ public class ArrowDamagePowerUp : MonoBehaviour
             }
         }
     }
-}
