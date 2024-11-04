@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+// adjusts the player's vecolity depending on keypresses
+// also keeps track of whether the player is attacking or not
+
 public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed = 5f;
@@ -9,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     public KeyCode downButton = KeyCode.S;
     public KeyCode leftButton = KeyCode.A;
     public KeyCode rightButton = KeyCode.D;
+    public bool isAttacking = false;
 
     private Rigidbody2D rb;
     [HideInInspector]

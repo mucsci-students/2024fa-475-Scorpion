@@ -16,13 +16,15 @@ public class FloorDestroyer : MonoBehaviour
     private float timeBetweenDestroys = 0.2f;
 
     private Tilemap floor;
-    private float destroyRadius = 10f; // how far behind the camera must be to destroy tiles
+    private float destroyRadius; // how far behind the camera must be to destroy tiles
 
     private List<Vector2> locToDestroySoon = new List<Vector2> (); // a list of locations that will be randomly destroyed over time
 
     void Start()
     {
         floor = GetComponent<Tilemap> ();
+        destroyRadius = -cam.transform.position.z / 5f * 6f - 2f; // destroyRadius depends on the camera's z pos
+        fallingTilePrefab.GetComponent<FallingTile> ().wobbleDuration = 1f / cam.GetComponent<CameraMov> ().camSpeed; // the tile's time spent wobbling depends on the camera's speed
     }
 
     void Update()

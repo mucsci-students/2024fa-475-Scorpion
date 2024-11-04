@@ -22,16 +22,18 @@ public class ShieldSummon : MonoBehaviour
         // Check if the shield button is being held down
         if (Input.GetKey(shieldButton))
         {
-            if (shieldInstance == null)
+            if (shieldInstance == null && !playerMovement.isAttacking)
             {
                 // Instantiate the shield if it's not already active
                 shieldInstance = Instantiate(shieldPrefab, transform.position + new Vector3 (0f, 0.5f, 0f), Quaternion.identity); // added offset of 0.5 in the y direction --LCC
                 shieldInstance.transform.parent = transform; // Make the shield follow the player
                 shieldInstance.GetComponent<Shield> ().wielder = gameObject;
+                playerMovement.isAttacking = true;
             }
 
             // Update shield position based on player's facing direction
-            UpdateShieldPosition();
+            if (shieldInstance != null)
+                UpdateShieldPosition();
         }
         else
         {
@@ -39,6 +41,7 @@ public class ShieldSummon : MonoBehaviour
             if (shieldInstance != null)
             {
                 Destroy(shieldInstance);
+                playerMovement.isAttacking = false;
             }
         }
     }

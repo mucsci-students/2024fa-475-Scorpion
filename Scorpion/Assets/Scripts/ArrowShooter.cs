@@ -9,6 +9,7 @@ public class ArrowShooter : MonoBehaviour
     public KeyCode shootButton = KeyCode.Space; // Button to shoot
     public float shootCooldown = 0.5f; // Time between shots
     private float lastShootTime = 0f; // Last time the player shot an arrow
+    private bool isShooting = false;
 
     private PlayerMovement playerMovement;
 
@@ -20,10 +21,17 @@ public class ArrowShooter : MonoBehaviour
     void Update()
     {
         // Check for shooting input and cooldown
-        if (Input.GetKey(shootButton) && Time.time > lastShootTime + shootCooldown)
+        if (isShooting && Time.time > lastShootTime + shootCooldown)
+        {
+            isShooting = false;
+            playerMovement.isAttacking = false;
+        }
+        if (Input.GetKey(shootButton) && !isShooting && !playerMovement.isAttacking)
         {
             ShootArrow(); // Call the ShootArrow method
             lastShootTime = Time.time; // Update last shoot time
+            playerMovement.isAttacking = true;
+            isShooting = true;
         }
     }
 
