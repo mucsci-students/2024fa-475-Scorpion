@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed = 5f;
@@ -15,6 +14,8 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector]
     public Vector2 lastFacingDirection = Vector2.right; // Default facing direction
     private SpriteRenderer rend;
+
+    public int arrowDamage = 2;
 
     void Start()
     {
@@ -59,4 +60,19 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = Vector2.zero;
         }
     }
+
+    // Method to apply a permanent speed power-up
+    public void ApplyPermanentSpeedBoost(float speedMultiplier)
+    {
+        moveSpeed *= speedMultiplier; // Permanently increase the speed
+    }
+    public int GetArrowDamage()
+    {
+        return arrowDamage; // Return the current arrow damage value
+    }
+    public void IncreaseArrowDamage(int amount)
+    {
+        arrowDamage += amount; // Increase the arrow damage
+    }
+
 }

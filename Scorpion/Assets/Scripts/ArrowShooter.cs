@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// spawns an arrow when a key is pressed, facing the correct direction
+// Handles arrow shooting mechanics
 public class ArrowShooter : MonoBehaviour
 {
     public GameObject arrowPrefab; // Reference to the arrow prefab
@@ -11,29 +11,29 @@ public class ArrowShooter : MonoBehaviour
     private float lastShootTime = 0f; // Last time the player shot an arrow
 
     private PlayerMovement playerMovement;
-    private Vector2 shootingDirection;
 
     void Start()
     {
         playerMovement = GetComponent<PlayerMovement>();
-        shootingDirection = playerMovement.lastFacingDirection; // Initialize with the default facing direction
     }
 
     void Update()
     {
+        // Check for shooting input and cooldown
         if (Input.GetKey(shootButton) && Time.time > lastShootTime + shootCooldown)
         {
-            // Update the shooting direction from the latest facing direction every frame while shooting
-            shootingDirection = playerMovement.lastFacingDirection;
-            ShootArrow();
+            ShootArrow(); // Call the ShootArrow method
             lastShootTime = Time.time; // Update last shoot time
         }
     }
 
     void ShootArrow()
     {
-        // Instantiate the arrow prefab (added offset of 0.25 in the y)
-        GameObject arrow = Instantiate(arrowPrefab, transform.position + new Vector3 (0f, 0.25f, 0f) + 0.5f * (Vector3) shootingDirection, Quaternion.identity);
+        // Get the current shooting direction from the player movement
+        Vector2 shootingDirection = playerMovement.lastFacingDirection;
+
+        // Instantiate the arrow prefab at the player's position with an offset
+        GameObject arrow = Instantiate(arrowPrefab, (Vector2)transform.position + shootingDirection * 0.5f + Vector2.up * 0.25f, Quaternion.identity);
 
         // Get the Arrow component and set its direction
         Arrow arrowComponent = arrow.GetComponent<Arrow>();
@@ -42,5 +42,8 @@ public class ArrowShooter : MonoBehaviour
         // Rotate the arrow to match the shooting direction
         float angle = Mathf.Atan2(shootingDirection.y, shootingDirection.x) * Mathf.Rad2Deg;
         arrow.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+
+        // Set the damage of the arrow based on player upgrades
+        arrowComponent.IncreaseDamage(playerMovement.GetArrowDamage());
     }
 }

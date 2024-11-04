@@ -66,4 +66,8 @@ public class SwordSwing : MonoBehaviour
 
         isSwinging = false;
     }
+    public void IncreaseDamage(int amount)
+    {
+        damageAmount += amount; // Increase the damage by the specified amount
+    }
 }
