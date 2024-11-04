@@ -33,7 +33,7 @@ public class EnemySpawner : MonoBehaviour
             if (enemyPrefab)
             {
                 GameObject enemyInst = Instantiate (enemyPrefab, transform.position, Quaternion.identity);
-                enemyInst.GetComponent<DefaultEnemy> ().targets = targets;
+                enemyInst.GetComponent<NewEnemy> ().targets = targets;
             }
             Destroy (gameObject);
         }

@@ -8,6 +8,7 @@ TagManager:
   - Player2
   - Shield
   - Enemy
+  - Wall Entity
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - 
   - Projectiles
   - Entities
-  - 
+  - Sensors
   - 
   - 
   - 
