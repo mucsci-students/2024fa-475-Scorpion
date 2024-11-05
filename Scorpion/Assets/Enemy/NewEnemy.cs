@@ -2,26 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// TODO: use NavMesh for pathfinding, or write more complex code
 public class NewEnemy : MonoBehaviour
 {
 
-    [SerializeField] private float speed = 1f; // in units per second
-    [SerializeField] private GameObject attackPrefab;
+    [SerializeField] protected float maxSpeed = 1f; // in units per second
+    [SerializeField] protected GameObject attackPrefab;
     [SerializeField] private float range = 5f;
     [SerializeField] private float attackCooldown = 1f; // in seconds
     public List<GameObject> targets = new List<GameObject> ();
+    [SerializeField] protected float leftWall = -8f; // the left & right edges of the path the enemy is on
+    [SerializeField] protected float rightWall = 8f; // ground enemies should count the lava as a wall
 
     private float retargetCooldown = 0.5f;
     private Rigidbody2D rb;
     private NewEnemyVision vision;
     private List<float> weights; // how much the enemy wants to move in each of the 8 directions
+    private float choiceThreshold = 0.0f;
 
     private float targetDist = float.PositiveInfinity;
-    private float timeOfLastAttack = 0f;
-    private GameObject currTarget; // null if no current target
+    protected float timeOfLastAttack = float.NegativeInfinity;
+    protected GameObject currTarget; // null if no current target
     private int directionChoice = 0;
     private float timeOfLastRetarget = 0f;
+    private float speed = 0f;
 
     public bool drawWeights = false;
 
@@ -45,13 +48,24 @@ public class NewEnemy : MonoBehaviour
             timeOfLastRetarget = Time.time;
         }
 
-        // move
+        // choose a direction
         UpdateWeights ();
-        directionChoice = IndexOfMaxWeight (weights);
-        Vector2 dir;
+        int bestChoice = IndexOfMaxWeight (weights);
+        if (bestChoice == -1)
+            directionChoice = -1;
+        else if (directionChoice == -1)
+            directionChoice = bestChoice;
+        else if (weights[bestChoice] > weights[directionChoice] + choiceThreshold)
+            directionChoice = bestChoice;
+
         if (directionChoice != -1)
         {
-            dir = IndexToVector (directionChoice);
+            // move
+            if (weights[directionChoice] < 1f)
+                speed = weights[directionChoice] * maxSpeed;
+            else
+                speed = maxSpeed;
+            Vector2 dir = IndexToVector (directionChoice);
             Move (dir);
 
             // attack the target
@@ -60,7 +74,7 @@ public class NewEnemy : MonoBehaviour
                 targetDist = Mathf.Abs((currTarget.transform.position - transform.position).magnitude);
                 if (timeOfLastAttack + attackCooldown < Time.time && targetDist < range)
                 {
-                    Attack (dir);
+                    Attack (IndexToVector (VectorToIndex (currTarget.transform.position - transform.position)));
                     timeOfLastAttack = Time.time;
                 }
             }
@@ -111,10 +125,34 @@ public class NewEnemy : MonoBehaviour
                 weights[i] += ShapeWeight (g.tag, dir, dirToObject, dist);
             }
         }
+
+        // adjust each weight based on proximity to the left & right walls
+        float distToLeft = transform.position.x - leftWall - 0.25f; // accound for the size of the enemy's circular hitbox
+        if (distToLeft < 0f)
+            distToLeft = 0f;
+        float distToRight = rightWall - transform.position.x - 0.25f; // accound for the size of the enemy's circular hitbox
+        if (distToRight < 0f)
+            distToRight = 0f;
+        for (int i = 0; i < 8; ++i)
+        {
+            Vector2 dir = IndexToVector (i);
+
+            // left wall 
+            float dot = Vector2.Dot (dir, Vector2.left);
+            if (dot < 0f)
+                dot = 0f;
+            weights[i] -= 0.05f * dot / distToLeft / distToLeft / distToLeft;
+
+            // right wall
+            dot = Vector2.Dot (dir, Vector2.right);
+            if (dot < 0f)
+                dot = 0f;
+            weights[i] -= 0.05f * dot / distToRight / distToRight / distToRight;
+        }
     }
 
     // apply a shaping function to a weight, based on the object's tag
-    private float ShapeWeight (string tag, Vector2 dir, Vector2 dirToObject, float distToObject)
+    public virtual float ShapeWeight (string tag, Vector2 dir, Vector2 dirToObject, float distToObject)
     {
         if (currTarget && tag == currTarget.tag) // either Player1 or Player2
         {
@@ -140,7 +178,7 @@ public class NewEnemy : MonoBehaviour
     }
 
     // attack in a certain direction
-    public void Attack (Vector3 dir)
+    public virtual void Attack (Vector3 dir)
     {
         // Instantiate the arrow prefab
         GameObject arrow = Instantiate(attackPrefab, transform.position + dir, Quaternion.identity);
@@ -169,10 +207,19 @@ public class NewEnemy : MonoBehaviour
         return index;
     }
 
+    // index 0 is Vector2.up
     private Vector2 IndexToVector (int i)
     {
         float angle = ((float) i) / 8f * 2f * Mathf.PI; // in radians
         return new Vector2 (Mathf.Sin (angle), Mathf.Cos (angle));
+    }
+
+    // nearest of the 8 directions to a given Vector2
+    private int VectorToIndex (Vector2 dir)
+    {
+        float angle = Vector2.SignedAngle (dir, Vector2.down) + 180f; // in degrees
+        int i = (int) Mathf.Round (angle / 45f);
+        return i == 8 ? 0 : i;
     }
 
 

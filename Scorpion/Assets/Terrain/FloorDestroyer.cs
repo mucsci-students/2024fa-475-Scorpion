@@ -29,6 +29,7 @@ public class FloorDestroyer : MonoBehaviour
 
     void Update()
     {
+        
         // continuously destroy rows of tiles as the camera moves
         if ((float) nextRowY + destroyRadius < cam.transform.position.y)
         {
@@ -55,7 +56,9 @@ public class FloorDestroyer : MonoBehaviour
             }
             DestroyTiles (locations);
             timeOfLastDestroy = Time.time;
+            
         }
+        
     }
 
     // destroys a bunch of tiles, given a list of their Vector2
