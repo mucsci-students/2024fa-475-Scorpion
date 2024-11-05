@@ -5,27 +5,25 @@ using UnityEngine;
 // waits 0.1 seconds and then does damage to everything it hit, except for anything using a shield
 public class SwordHitbox : MonoBehaviour
 {
-    public int DamageAmount { get; set; } // Damage amount set by SwordSwing script
-    public List<string> validTargets = new List<string> { "Enemy" }; // Tags for valid targets
-    
-    private List<GameObject> enemiesToDamage = new List<GameObject> (); // enemies in the hitbox
-    private List<GameObject> enemiesNotToDamage = new List<GameObject> (); // enemies shielded
-    private float timeUntilDoDamage = 0.1f; // in seconds
+    public int DamageAmount { get; set; }
+    public int playerID;  // Ensure this is assigned from SwordSwing
 
+    private List<GameObject> enemiesToDamage = new List<GameObject>();
+    private List<GameObject> enemiesNotToDamage = new List<GameObject>();
+    private float timeUntilDoDamage = 0.1f;
     private float timeOfSpawn;
     private bool damageDone = false;
 
-    
-    void Start ()
+    void Start()
     {
         timeOfSpawn = Time.time;
     }
 
-    void Update ()
+    void Update()
     {
         if (timeOfSpawn + timeUntilDoDamage < Time.time && !damageDone)
         {
-            DoDamage ();
+            DoDamage();
             damageDone = true;
         }
     }
@@ -36,21 +34,29 @@ public class SwordHitbox : MonoBehaviour
         GameObject other = collision.gameObject;
         if (enemyHealth != null)
         {
-            enemiesToDamage.Add (other); // damage this enemy in a few milliseconds
+            enemiesToDamage.Add(other);
         }
         else if (other.CompareTag("Shield"))
         {
-            enemiesNotToDamage.Add (other.GetComponent<Shield> ().wielder); // actually don't damage this enemy, it's shielded
+            enemiesNotToDamage.Add(other.GetComponent<Shield>().wielder);
         }
     }
 
-    // damage all of the enemies in the enemiesToDamage list
-    private void DoDamage ()
+    private void DoDamage()
     {
         foreach (GameObject g in enemiesToDamage)
         {
-            if (g && !enemiesNotToDamage.Contains (g))
-                g.GetComponent<Health> ().TakeDamage (DamageAmount, validTargets);
+
+            if (g && !enemiesNotToDamage.Contains(g))
+            {
+                Health health = g.GetComponent<Health>();
+                if (health != null)
+                {
+                    health.TakeDamage(DamageAmount, playerID);  // Use the correct playerID here
+                }
+            }
         }
     }
 }
+
+

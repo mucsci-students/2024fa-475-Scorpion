@@ -12,6 +12,7 @@ public class Arrow : MonoBehaviour
 
     private Rigidbody2D rb;
     private Vector2 direction;               // Direction of the arrow
+    public int playerID;                     // ID of the player that shot the arrow
 
     void Start()
     {
@@ -51,11 +52,10 @@ public class Arrow : MonoBehaviour
             Health targetHealth = other.GetComponent<Health>();
             if (targetHealth != null)
             {
-                targetHealth.TakeDamage(damageAmount, validTargets);
+                // Pass the playerID when dealing damage
+                targetHealth.TakeDamage(damageAmount, playerID);
             }
             Destroy(gameObject);
         }
     }
 }
-
-

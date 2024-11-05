@@ -5,18 +5,20 @@ using UnityEngine;
 // spawns a sword hitbox when a key is pressed, tells it how much damage to do, and then deletes after a duration
 public class SwordSwing : MonoBehaviour
 {
-    public GameObject hitboxPrefab; 
-    public KeyCode swingButton = KeyCode.Z; 
-    public float swingDuration = 0.5f; 
-    public int damageAmount = 5; 
-    public Vector2 hitboxOffset = new Vector2(1f, 0f); 
+    public GameObject hitboxPrefab;
+    public KeyCode swingButton = KeyCode.Z;
+    public float swingDuration = 0.5f;
+    public int damageAmount = 5;
+    public Vector2 hitboxOffset = new Vector2(1f, 0f);
 
-    private PlayerMovement playerMovement; 
-    private bool isSwinging = false; 
+    private PlayerMovement playerMovement;
+    private bool isSwinging = false;
+    public int playerID; // Added playerID
 
     void Start()
     {
-        playerMovement = GetComponent<PlayerMovement>(); // Get the player movement script
+        playerMovement = GetComponent<PlayerMovement>(); // Get the PlayerMovement script
+        playerID = playerMovement.playerID; // Set playerID from PlayerMovement
     }
 
     void Update()
@@ -33,12 +35,10 @@ public class SwordSwing : MonoBehaviour
         playerMovement.isAttacking = true;
 
         // disabling player movement causes the player to keep moving in the same direction
-        // this is kind of cool, but we might decide to remove this later --LCC
         playerMovement.enabled = false;
 
-        
-        Vector2 spawnPosition = (Vector2)transform.position + playerMovement.lastFacingDirection * hitboxOffset.magnitude + new Vector2(0f, 0.25f); // offset y pos by 0.5 -- LCC
-        GameObject hitbox = Instantiate(hitboxPrefab, spawnPosition, Quaternion.identity, transform); // made sword swing child of player --LCC
+        Vector2 spawnPosition = (Vector2)transform.position + playerMovement.lastFacingDirection * hitboxOffset.magnitude + new Vector2(0f, 0.25f);
+        GameObject hitbox = Instantiate(hitboxPrefab, spawnPosition, Quaternion.identity, transform); // made sword swing child of player
 
         float angle = Mathf.Atan2(playerMovement.lastFacingDirection.y, playerMovement.lastFacingDirection.x) * Mathf.Rad2Deg;
         hitbox.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
@@ -48,9 +48,9 @@ public class SwordSwing : MonoBehaviour
         if (swordHitbox != null)
         {
             swordHitbox.DamageAmount = damageAmount;
+            swordHitbox.playerID = playerID; // Pass playerID to hitbox
         }
 
-        // Ensure the hitbox has a Collider2D component set for collision
         Collider2D collider = hitbox.GetComponent<Collider2D>();
         if (collider != null)
         {
@@ -69,7 +69,8 @@ public class SwordSwing : MonoBehaviour
         isSwinging = false;
         playerMovement.isAttacking = false;
     }
-    public void IncreaseDamage(int amount)
+
+public void IncreaseDamage(int amount)
     {
         damageAmount += amount; // Increase the damage by the specified amount
     }
