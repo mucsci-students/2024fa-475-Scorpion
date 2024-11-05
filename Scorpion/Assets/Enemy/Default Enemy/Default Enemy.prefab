@@ -245,6 +245,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 10
+  isEnemy: 1
+  coinPrefab: {fileID: 1486388529112008758, guid: 4271a76a62f0d4d0f835fb9a7f42ee30, type: 3}
 --- !u!114 &3210488489021197739
 MonoBehaviour:
   m_ObjectHideFlags: 0
