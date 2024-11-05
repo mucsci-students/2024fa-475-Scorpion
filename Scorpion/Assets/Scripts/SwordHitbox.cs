@@ -49,7 +49,7 @@ public class SwordHitbox : MonoBehaviour
     {
         foreach (GameObject g in enemiesToDamage)
         {
-            if (!enemiesNotToDamage.Contains (g))
+            if (g && !enemiesNotToDamage.Contains (g))
                 g.GetComponent<Health> ().TakeDamage (DamageAmount, validTargets);
         }
     }

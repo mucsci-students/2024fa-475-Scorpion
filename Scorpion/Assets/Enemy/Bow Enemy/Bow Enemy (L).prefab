@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &7476349622789144243
+--- !u!1001 &7043120496653555047
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,11 +10,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4602545637983796455, guid: d6b93382f6a624d0c9324312959cbd49, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.59
+      value: -5.37
       objectReference: {fileID: 0}
     - target: {fileID: 4602545637983796455, guid: d6b93382f6a624d0c9324312959cbd49, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.18
+      value: 2.53
       objectReference: {fileID: 0}
     - target: {fileID: 4602545637983796455, guid: d6b93382f6a624d0c9324312959cbd49, type: 3}
       propertyPath: m_LocalPosition.z
@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7561539813495933605, guid: d6b93382f6a624d0c9324312959cbd49, type: 3}
       propertyPath: m_Name
-      value: Sword Enemy (R)
+      value: Bow Enemy (L)
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3210488489021197739, guid: d6b93382f6a624d0c9324312959cbd49, type: 3}
@@ -59,38 +59,37 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 7561539813495933605, guid: d6b93382f6a624d0c9324312959cbd49, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8330030630303074771}
+      addedObject: {fileID: 9141587983324958281}
   m_SourcePrefab: {fileID: 100100000, guid: d6b93382f6a624d0c9324312959cbd49, type: 3}
---- !u!1 &1093996731132998678 stripped
+--- !u!1 &671542821436055490 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7561539813495933605, guid: d6b93382f6a624d0c9324312959cbd49, type: 3}
-  m_PrefabInstance: {fileID: 7476349622789144243}
+  m_PrefabInstance: {fileID: 7043120496653555047}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8330030630303074771
+--- !u!114 &9141587983324958281
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1093996731132998678}
+  m_GameObject: {fileID: 671542821436055490}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64a920ea4d87c4a1287ae24c370bf929, type: 3}
+  m_Script: {fileID: 11500000, guid: da04495d0709d480583de9f3472835db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 1.5
-  attackPrefab: {fileID: 4768776504061575895, guid: 24d6a0215c8fe4a42b8cc955209d9981, type: 3}
-  range: 1.2
+  attackPrefab: {fileID: 8126352406112777003, guid: 83be232b21f03402ea912107de9995be, type: 3}
+  range: 15
   attackCooldown: 1
   targets:
   - {fileID: 0}
-  leftWall: 2
-  rightWall: 10
+  leftWall: -10
+  rightWall: -2
   drawWeights: 1
-  damageAmount: 5
-  swingDuration: 0.2
-  hitboxOffset: {x: 1, y: 0}
-  retreatCooldown: 3
-  minStrafeDist: 3
-  maxStrafeDist: 4.5
+  damageAmount: 2
+  retreatCooldown: 1.5
+  minStrafeDist: 10
+  maxStrafeDist: 15
   dashSpeed: 2
+  thresholdAngleToShoot: 3

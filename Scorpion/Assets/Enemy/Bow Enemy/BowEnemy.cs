@@ -2,19 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SwordEnemy : NewEnemy
+public class BowEnemy : NewEnemy
 {
 
-    [SerializeField] private int damageAmount = 5;
-    [SerializeField] private float swingDuration = 0.2f;
-    [SerializeField] private Vector2 hitboxOffset = new Vector2(1f, 0f);
-
+    [SerializeField] private int damageAmount = 2;
     [SerializeField] private float retreatCooldown = 2.0f; // the duration for which the enemy retreats after attacking
-    [SerializeField] private float minStrafeDist = 2f; // the distance at which the enemy attempts to strafe
-    [SerializeField] private float maxStrafeDist = 4f;
+    [SerializeField] private float minStrafeDist = 5f; // the distance at which the enemy attempts to strafe
+    [SerializeField] private float maxStrafeDist = 6f;
     [SerializeField] private float dashSpeed = 2f;
+    [SerializeField] private float thresholdAngleToShoot = 3f;
  
-    private float strafeDir = 1f;
+    private bool isStrafing = true;
+    private float strafeDir;
     private float strafeDist;
     private float oldMaxSpeed;
 
@@ -25,25 +24,27 @@ public class SwordEnemy : NewEnemy
             if (timeOfLastAttack + retreatCooldown < Time.time)
             {
                 // move in to attack
-                if (strafeDir != 0f)
+                if (isStrafing)
                 {
-                    strafeDir = 0f;
+                    isStrafing = false;
+                    strafeDir = Random.Range (0, 2) == 0 ? -1 : 1;
                     oldMaxSpeed = maxSpeed;
                     maxSpeed = dashSpeed;
                 }
-                float angle = Vector2.Angle (dir, dirToObject) / 180f * Mathf.PI; // in radians
-                return Mathf.Cos (angle / 2f);
+                float signedAngle = Vector2.SignedAngle (dir, dirToObject) / 180f * Mathf.PI; // in radians
+                return Mathf.Abs (Mathf.Cos ((signedAngle + strafeDir * Mathf.PI / 4f) / 2f));
             }
             else
             {
                 // retreat
-                if (strafeDir == 0f)
+                if (!isStrafing)
                 {
+                    isStrafing = true;
                     strafeDir = Random.Range (0, 2) == 0 ? -1 : 1;
                     strafeDist = Random.Range (minStrafeDist, maxStrafeDist);
                     maxSpeed = oldMaxSpeed;
                 }
-                
+
                 float angle = Vector2.Angle (dir, dirToObject) / 180f * Mathf.PI; // in radians
                 float retreatWeight = Mathf.Cos (angle);
                 float strafeWeight;
@@ -52,7 +53,7 @@ public class SwordEnemy : NewEnemy
                     strafeWeight = Mathf.Abs (Mathf.Cos ((signedAngle + Mathf.PI / 2f) / 2f));
                 else
                     strafeWeight = Mathf.Abs (Mathf.Cos ((signedAngle - Mathf.PI / 2f) / 2f));
-
+                    
                 return strafeWeight + retreatWeight * (distToObject - strafeDist) / 4f;
             }
         }
@@ -83,36 +84,23 @@ public class SwordEnemy : NewEnemy
 
     public override bool Attack (Vector3 dir)
     {
-        StartCoroutine(SwingSword((Vector2) dir));
-        return true;
-    }
-
-    IEnumerator SwingSword(Vector2 dir)
-    {        
-        Vector2 spawnPosition = (Vector2)transform.position + dir * hitboxOffset.magnitude + new Vector2(0f, 0.25f);
-        GameObject hitbox = Instantiate(attackPrefab, spawnPosition, Quaternion.identity, transform);
-
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        hitbox.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-
-        // Apply damage to any targets in the hitbox
-        SwordHitbox swordHitbox = hitbox.GetComponent<SwordHitbox>();
-        if (swordHitbox != null)
+        if (Vector2.Angle (dir, targetDir) < thresholdAngleToShoot)
         {
-            swordHitbox.DamageAmount = damageAmount;
+            GameObject arrow = Instantiate(attackPrefab, (Vector2)transform.position + (Vector2)dir * 0.5f + Vector2.up * 0.25f, Quaternion.identity);
+
+            Arrow arrowComponent = arrow.GetComponent<Arrow>();
+            arrowComponent.SetDirection(dir);
+
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            arrow.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+
+            arrowComponent.IncreaseDamage(damageAmount);
+
+            return true;
         }
 
-        // Ensure the hitbox has a Collider2D component set for collision
-        Collider2D collider = hitbox.GetComponent<Collider2D>();
-        if (collider != null)
-        {
-            collider.isTrigger = false; // Ensure it's set for collision, not trigger
-        }
+        return false;
 
-        // Wait for the swing duration
-        yield return new WaitForSeconds(swingDuration);
-
-        // Destroy the hitbox
-        Destroy(hitbox);
+        // TODO: don't shoot when off-camera
     }
 }

@@ -84,7 +84,7 @@ MonoBehaviour:
   attackCooldown: 1
   targets:
   - {fileID: 0}
-  leftWall: -8
+  leftWall: -10
   rightWall: -2
   drawWeights: 1
   damageAmount: 5

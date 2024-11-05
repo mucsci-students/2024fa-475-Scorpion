@@ -257,12 +257,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7f3eac24a76945e29057d80be547005, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  maxSpeed: 1
   attackPrefab: {fileID: 8126352406112777003, guid: 83be232b21f03402ea912107de9995be, type: 3}
   range: 5
   attackCooldown: 1
   targets:
   - {fileID: 0}
-  weights: []
-  directionChoice: 0
+  leftWall: -10
+  rightWall: 10
   drawWeights: 1

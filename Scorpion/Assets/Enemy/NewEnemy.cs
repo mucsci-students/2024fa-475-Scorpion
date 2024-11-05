@@ -10,8 +10,8 @@ public class NewEnemy : MonoBehaviour
     [SerializeField] private float range = 5f;
     [SerializeField] private float attackCooldown = 1f; // in seconds
     public List<GameObject> targets = new List<GameObject> ();
-    [SerializeField] protected float leftWall = -8f; // the left & right edges of the path the enemy is on
-    [SerializeField] protected float rightWall = 8f; // ground enemies should count the lava as a wall
+    [SerializeField] protected float leftWall = -10f; // the left & right edges of the path the enemy is on
+    [SerializeField] protected float rightWall = 10f; // ground enemies should count the lava as a wall
 
     private float retargetCooldown = 0.5f;
     private Rigidbody2D rb;
@@ -20,6 +20,7 @@ public class NewEnemy : MonoBehaviour
     private float choiceThreshold = 0.0f;
 
     private float targetDist = float.PositiveInfinity;
+    protected Vector2 targetDir;
     protected float timeOfLastAttack = float.NegativeInfinity;
     protected GameObject currTarget; // null if no current target
     private int directionChoice = 0;
@@ -72,10 +73,11 @@ public class NewEnemy : MonoBehaviour
             if (currTarget != null)
             {
                 targetDist = Mathf.Abs((currTarget.transform.position - transform.position).magnitude);
+                targetDir = (currTarget.transform.position - transform.position).normalized;
                 if (timeOfLastAttack + attackCooldown < Time.time && targetDist < range)
                 {
-                    Attack (IndexToVector (VectorToIndex (currTarget.transform.position - transform.position)));
-                    timeOfLastAttack = Time.time;
+                    if (Attack (IndexToVector (VectorToIndex (currTarget.transform.position - transform.position))))
+                        timeOfLastAttack = Time.time;
                 }
             }
         }
@@ -149,6 +151,8 @@ public class NewEnemy : MonoBehaviour
                 dot = 0f;
             weights[i] -= 0.05f * dot / distToRight / distToRight / distToRight;
         }
+
+        // TODO: avoid falling in lava from behind
     }
 
     // apply a shaping function to a weight, based on the object's tag
@@ -178,7 +182,8 @@ public class NewEnemy : MonoBehaviour
     }
 
     // attack in a certain direction
-    public virtual void Attack (Vector3 dir)
+    // returns true if the enemy did indeed attack (some subclasses might add further logic)
+    public virtual bool Attack (Vector3 dir)
     {
         // Instantiate the arrow prefab
         GameObject arrow = Instantiate(attackPrefab, transform.position + dir, Quaternion.identity);
@@ -190,6 +195,8 @@ public class NewEnemy : MonoBehaviour
         // Rotate the arrow to match the shooting direction
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         arrow.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+
+        return true;
     }
 
     private int IndexOfMaxWeight (List<float> weights)
