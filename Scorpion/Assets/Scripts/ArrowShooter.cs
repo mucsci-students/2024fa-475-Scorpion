@@ -53,5 +53,8 @@ public class ArrowShooter : MonoBehaviour
 
         // Set the damage of the arrow based on player upgrades
         arrowComponent.IncreaseDamage(playerMovement.GetArrowDamage());
+
+        // Assign the player ID to the arrow
+        arrowComponent.playerID = playerMovement.playerID; // Set the playerID for the arrow
     }
 }

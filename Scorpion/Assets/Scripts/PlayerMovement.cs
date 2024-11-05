@@ -8,6 +8,9 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+
+    public int playerID;
+
     public float moveSpeed = 5f;
     public KeyCode upButton = KeyCode.W;
     public KeyCode downButton = KeyCode.S;
