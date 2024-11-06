@@ -12,7 +12,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private GameObject cam;
 
     private int totalProbabilities = 0;
-    private float triggerRadius = 15f; // how close the camera should be to trigger the spawner
+    private float triggerRadius; // how close the camera should be to trigger the spawner
 
     void Start()
     {
@@ -22,11 +22,13 @@ public class EnemySpawner : MonoBehaviour
             totalProbabilities += p;
         }
         totalProbabilities += chanceOfNoSpawn;
+
+        triggerRadius = -cam.transform.position.z / 5f * 6f; // destroy radius depends on the camera's z pos
     }
 
     void Update()
     {
-        if (Mathf.Abs(((Vector2)(cam.transform.position - transform.position)).magnitude) < triggerRadius)
+        if (transform.position.y - cam.transform.position.y < triggerRadius)
         {
             // instantiate a random enemy
             GameObject enemyPrefab = RandomEnemyPrefab ();
