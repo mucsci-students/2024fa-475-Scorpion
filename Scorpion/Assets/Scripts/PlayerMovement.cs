@@ -50,7 +50,8 @@ public class PlayerMovement : MonoBehaviour
         {
             movement.Normalize();
             rb.velocity = movement * moveSpeed;
-            lastFacingDirection = movement;
+            if (!isAttacking)
+                lastFacingDirection = movement;
 
             HandleAnimations(movement);
 
