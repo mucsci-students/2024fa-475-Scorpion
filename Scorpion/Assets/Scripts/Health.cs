@@ -56,7 +56,7 @@ public class Health : MonoBehaviour
     public void Die()
     {
         // Only spawn a coin if this is an enemy
-        if (isEnemy)
+        if (isEnemy && lastHitByPlayerID != 0)
         {
             GameObject coin = Instantiate(coinPrefab, transform.position, Quaternion.identity);
             coin.GetComponent<Coin>().Initialize(lastHitByPlayerID);
