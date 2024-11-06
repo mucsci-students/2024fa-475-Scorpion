@@ -9,7 +9,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private List<int> probabilityWeights; // how likely each enemy prefab is to be spawned (0 is never, 1 is average, 2 is twice as likely, etc.)
     [SerializeField] private int chanceOfNoSpawn; // how likely it is for no enemy to spawn
     [SerializeField] private List<GameObject> targets; // list of targets to pass to spawned enemies
-    [SerializeField] private GameObject cam;
+    [SerializeField] private Camera cam;
 
     private int totalProbabilities = 0;
     private float triggerRadius; // how close the camera should be to trigger the spawner
@@ -35,7 +35,9 @@ public class EnemySpawner : MonoBehaviour
             if (enemyPrefab)
             {
                 GameObject enemyInst = Instantiate (enemyPrefab, transform.position, Quaternion.identity);
-                enemyInst.GetComponent<NewEnemy> ().targets = targets;
+                NewEnemy enemyInstComp = enemyInst.GetComponent<NewEnemy> ();
+                enemyInstComp.targets = targets;
+                enemyInstComp.cam = cam;
             }
             Destroy (gameObject);
         }

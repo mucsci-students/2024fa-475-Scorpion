@@ -12,12 +12,14 @@ public class NewEnemy : MonoBehaviour
     public List<GameObject> targets = new List<GameObject> ();
     [SerializeField] protected float leftWall = -10f; // the left & right edges of the path the enemy is on
     [SerializeField] protected float rightWall = 10f; // ground enemies should count the lava as a wall
+    public Camera cam;
 
     private float retargetCooldown = 0.5f;
     private Rigidbody2D rb;
     private NewEnemyVision vision;
     private List<float> weights; // how much the enemy wants to move in each of the 8 directions
     private float choiceThreshold = 0.0f;
+    private float rangeInCamera; // how close to the camera the enemy must be to attack
 
     private float targetDist = float.PositiveInfinity;
     protected Vector2 targetDir;
@@ -38,6 +40,8 @@ public class NewEnemy : MonoBehaviour
         {
             weights.Add (0f);
         }
+
+        rangeInCamera = -cam.transform.position.z / 5f * 6f - 1f; // depends on the camera's z pos
     }
 
     void Update()
@@ -74,7 +78,7 @@ public class NewEnemy : MonoBehaviour
             {
                 targetDist = Mathf.Abs((currTarget.transform.position - transform.position).magnitude);
                 targetDir = (currTarget.transform.position - transform.position).normalized;
-                if (timeOfLastAttack + attackCooldown < Time.time && targetDist < range)
+                if (timeOfLastAttack + attackCooldown < Time.time && targetDist < range && transform.position.y - cam.transform.position.y < rangeInCamera)
                 {
                     if (Attack (IndexToVector (VectorToIndex (currTarget.transform.position - transform.position))))
                         timeOfLastAttack = Time.time;
