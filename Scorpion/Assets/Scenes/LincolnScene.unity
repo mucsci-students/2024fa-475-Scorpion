@@ -476,6 +476,10 @@ PrefabInstance:
       value: Player1
       objectReference: {fileID: 0}
     - target: {fileID: 1160356261127867848, guid: 61ed7a01b532c17489ff08570db6ce7f, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 273aa7447c2d7284cb020c577653a79b, type: 2}
+    - target: {fileID: 1160356261127867848, guid: 61ed7a01b532c17489ff08570db6ce7f, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 0
       objectReference: {fileID: 0}
@@ -484,9 +488,13 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3626916397498700004, guid: 61ed7a01b532c17489ff08570db6ce7f, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 78d03ce1d36c540d5a183e4b042d3afb, type: 3}
+    - target: {fileID: 3626916397498700004, guid: 61ed7a01b532c17489ff08570db6ce7f, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 7e7589a8f056a714ab824f8c84e2ecfe, type: 2}
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 7878350319992209165, guid: 61ed7a01b532c17489ff08570db6ce7f, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -539,8 +547,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1160356261127867848, guid: 61ed7a01b532c17489ff08570db6ce7f, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 7878350319992209165, guid: 61ed7a01b532c17489ff08570db6ce7f, type: 3}
@@ -655,6 +662,7 @@ MonoBehaviour:
   leftButton: 97
   rightButton: 100
   isAttacking: 0
+  animator: {fileID: 1359909692}
   lastFacingDirection: {x: 1, y: 0}
   arrowDamage: 2
 --- !u!58 &129876309
@@ -689,7 +697,7 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.25}
+  m_Offset: {x: 0, y: -0.215}
   serializedVersion: 2
   m_Radius: 0.25
 --- !u!114 &129876310
@@ -5051,6 +5059,11 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!95 &1359909692 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1160356261127867848, guid: 61ed7a01b532c17489ff08570db6ce7f, type: 3}
+  m_PrefabInstance: {fileID: 129876299}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1370348407
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5230,6 +5243,11 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!95 &1390761321 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1160356261127867848, guid: 61ed7a01b532c17489ff08570db6ce7f, type: 3}
+  m_PrefabInstance: {fileID: 1757706516}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1409579030
 GameObject:
   m_ObjectHideFlags: 0
@@ -5951,8 +5969,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ffef71a5948f4e73a94f9b242ca928a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftmostTileX: -8
-  rightmostTileX: 7
+  leftmostTileX: -10
+  rightmostTileX: 9
   nextRowY: -4
   fallingTilePrefab: {fileID: 1451629923120892973, guid: 5343eb69c65c54ad48c219269d9471c1, type: 3}
   lavaLightPrefab: {fileID: 1809142816546994360, guid: c1f627683fe50409b88dcdaed2c235eb, type: 3}
@@ -14402,10 +14420,18 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player2
       objectReference: {fileID: 0}
+    - target: {fileID: 1160356261127867848, guid: 61ed7a01b532c17489ff08570db6ce7f, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: ac632f79884eecb478f24db5da5b02b8, type: 2}
+    - target: {fileID: 3626916397498700004, guid: 61ed7a01b532c17489ff08570db6ce7f, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a1756e3ae55d81f40a9969d37d54f4e2, type: 3}
     - target: {fileID: 3626916397498700004, guid: 61ed7a01b532c17489ff08570db6ce7f, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 7e7589a8f056a714ab824f8c84e2ecfe, type: 2}
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 7878350319992209165, guid: 61ed7a01b532c17489ff08570db6ce7f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5
@@ -14446,8 +14472,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1160356261127867848, guid: 61ed7a01b532c17489ff08570db6ce7f, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 7878350319992209165, guid: 61ed7a01b532c17489ff08570db6ce7f, type: 3}
@@ -14547,6 +14572,7 @@ MonoBehaviour:
   leftButton: 276
   rightButton: 275
   isAttacking: 0
+  animator: {fileID: 1390761321}
   lastFacingDirection: {x: 1, y: 0}
   arrowDamage: 2
 --- !u!58 &1757706524
@@ -14581,7 +14607,7 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.25}
+  m_Offset: {x: 0, y: -0.215}
   serializedVersion: 2
   m_Radius: 0.25
 --- !u!114 &1757706525
