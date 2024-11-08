@@ -2,20 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BowEnemy : NewEnemy
+public class ShieldEnemy : NewEnemy
 {
+    [SerializeField] private Vector2 shieldOffset = new Vector2(0.5f, 0f);
 
-    [SerializeField] private int damageAmount = 2;
     [SerializeField] private float retreatCooldown = 2.0f; // the duration for which the enemy retreats after attacking
-    [SerializeField] private float minStrafeDist = 5f; // the distance at which the enemy attempts to strafe
-    [SerializeField] private float maxStrafeDist = 6f;
-    [SerializeField] private float dashSpeed = 2f;
-    [SerializeField] private float thresholdAngleToShoot = 3f;
+    [SerializeField] private float minStrafeDist = 2f; // the distance at which the enemy attempts to strafe
+    [SerializeField] private float maxStrafeDist = 4f;
+    [SerializeField] private float minStopDist = 2f; // the distance at which the enemy stops in front of the player
+    [SerializeField] private float maxStopDist = 1f;
  
     private bool isStrafing = true;
     private float strafeDir;
     private float strafeDist;
-    private float oldMaxSpeed;
+    private float stopDist;
+    private GameObject shieldInstance;
+    private Vector3 shieldDir;
 
     public override float ShapeWeight (string tag, Vector2 dir, Vector2 dirToObject, float distToObject)
     {
@@ -23,16 +25,15 @@ public class BowEnemy : NewEnemy
         {
             if (timeOfLastAttack + retreatCooldown < Time.time)
             {
-                // move in to attack
+                // move in to shield
                 if (isStrafing)
                 {
                     isStrafing = false;
-                    strafeDir = Random.Range (0, 2) == 0 ? -1 : 1;
-                    oldMaxSpeed = maxSpeed;
-                    maxSpeed = dashSpeed;
+                    stopDist = Random.Range (minStopDist, maxStopDist);
                 }
-                float signedAngle = Vector2.SignedAngle (dir, dirToObject) / 180f * Mathf.PI; // in radians
-                return Mathf.Abs (Mathf.Cos ((signedAngle + strafeDir * Mathf.PI / 4f) / 2f));
+                float angle = Vector2.Angle (dir, dirToObject) / 180f * Mathf.PI; // in radians
+                float retreatWeight = Mathf.Cos (angle);
+                return retreatWeight * (distToObject - stopDist) / 4f;
             }
             else
             {
@@ -42,7 +43,6 @@ public class BowEnemy : NewEnemy
                     isStrafing = true;
                     strafeDir = Random.Range (0, 2) == 0 ? -1 : 1;
                     strafeDist = Random.Range (minStrafeDist, maxStrafeDist);
-                    maxSpeed = oldMaxSpeed;
                 }
 
                 float angle = Vector2.Angle (dir, dirToObject) / 180f * Mathf.PI; // in radians
@@ -84,21 +84,23 @@ public class BowEnemy : NewEnemy
 
     public override bool Attack (Vector3 dir)
     {
-        if (Vector2.Angle (dir, targetDir) < thresholdAngleToShoot)
+        if (shieldInstance != null && dir != shieldDir)
         {
-            GameObject arrow = Instantiate(attackPrefab, (Vector2)transform.position + (Vector2)dir * 0.5f + Vector2.up * 0.25f, Quaternion.identity);
-
-            Arrow arrowComponent = arrow.GetComponent<Arrow>();
-            arrowComponent.SetDirection(dir);
-
-            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-            arrow.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-
-            arrowComponent.IncreaseDamage(damageAmount);
-
+            // the enemy wants to rotate its shield, but it needs to lower it first
+            Destroy (shieldInstance);
+            return true;
+        }
+        else if (shieldInstance == null)
+        {
+            // raise the shield
+            shieldDir = dir;
+            shieldInstance = Instantiate(attackPrefab, transform.position + new Vector3 (0f, 0.5f, 0f), Quaternion.identity);
+            shieldInstance.transform.parent = transform;
+            shieldInstance.GetComponent<Shield> ().wielder = gameObject;
             return true;
         }
 
+        // the enemy is already shielding
         return false;
     }
 }
