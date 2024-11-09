@@ -56,4 +56,5 @@ public class ShieldSummon : MonoBehaviour
         float angle = Mathf.Atan2(playerMovement.lastFacingDirection.y, playerMovement.lastFacingDirection.x) * Mathf.Rad2Deg;
         shieldInstance.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
     }
+    
 }

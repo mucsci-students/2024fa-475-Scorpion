@@ -133,10 +133,10 @@ public class NewEnemy : MonoBehaviour
         }
 
         // adjust each weight based on proximity to the left & right walls
-        float distToLeft = transform.position.x - leftWall - 0.25f; // accound for the size of the enemy's circular hitbox
+        float distToLeft = transform.position.x - leftWall - 0.25f; // account for the size of the enemy's circular hitbox
         if (distToLeft < 0f)
             distToLeft = 0f;
-        float distToRight = rightWall - transform.position.x - 0.25f; // accound for the size of the enemy's circular hitbox
+        float distToRight = rightWall - transform.position.x - 0.25f; // account for the size of the enemy's circular hitbox
         if (distToRight < 0f)
             distToRight = 0f;
         for (int i = 0; i < 8; ++i)

@@ -100,7 +100,5 @@ public class BowEnemy : NewEnemy
         }
 
         return false;
-
-        // TODO: don't shoot when off-camera
     }
 }
