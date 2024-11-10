@@ -12,6 +12,7 @@ public class BGMController : MonoBehaviour
     [SerializeField] private List<ShopCollider> shopColliders;
     [SerializeField] private AudioSource shopSong;
     [SerializeField] private List<AudioClip> shopSongClips;
+    [SerializeField] private float transitionTime = 0.5f;
 
     private Coroutine interpolationCoroutine;
     private bool doorIsOpen;
@@ -38,10 +39,11 @@ public class BGMController : MonoBehaviour
             // play run, if not already
             if (currSong != 1)
             {
-                print ("switching to run");
                 shopSong.Stop ();
                 currSong = 1;
-                interpolationCoroutine = StartCoroutine (InterpolateAudioEffect (0.5f));
+                if (interpolationCoroutine != null)
+                    StopCoroutine (interpolationCoroutine);
+                interpolationCoroutine = StartCoroutine (InterpolateAudioEffect (transitionTime));
             }
         }
         else if (numPlayersInShop > 0 && (numPlayersInShop < 2 || doorIsOpen))
@@ -49,10 +51,11 @@ public class BGMController : MonoBehaviour
             // play muffled run, if not already
             if (currSong != 2)
             {
-                print ("switching to muffled run");
                 shopSong.Stop ();
                 currSong = 2;
-                interpolationCoroutine = StartCoroutine (InterpolateAudioEffect (0.5f));
+                if (interpolationCoroutine != null)
+                    StopCoroutine (interpolationCoroutine);
+                interpolationCoroutine = StartCoroutine (InterpolateAudioEffect (transitionTime));
             }
         }
         else // numPlayersInShop == 2 && !doorIsOpen
@@ -60,11 +63,12 @@ public class BGMController : MonoBehaviour
             // play shop, if not already
             if (currSong != 3)
             {
-                print ("switching to shop");
                 shopSong.clip = shopSongClips[Random.Range (0, shopSongClips.Count)];
                 shopSong.Play ();
                 currSong = 3;
-                interpolationCoroutine = StartCoroutine (InterpolateAudioEffect (0.5f));
+                if (interpolationCoroutine != null)
+                    StopCoroutine (interpolationCoroutine);
+                interpolationCoroutine = StartCoroutine (InterpolateAudioEffect (transitionTime));
             }
         }
     }
@@ -89,7 +93,7 @@ public class BGMController : MonoBehaviour
         }
         else if (currSong == 2)
         {
-            targetRunVol = -5f;
+            targetRunVol = -7f;
             targetLowpass = 5000f;
             targetHighpass = 500f;
             targetShopVol = -80f;

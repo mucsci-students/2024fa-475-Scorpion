@@ -11,15 +11,11 @@ public class ShopCollider : MonoBehaviour
     {
         if (c.tag == "Player1" || c.tag == "Player2")
             ++numPlayersInShop;
-
-            print (numPlayersInShop);
     }
 
     void OnTriggerExit2D (Collider2D c)
     {
         if (c.tag == "Player2" || c.tag == "Player1")
             --numPlayersInShop;
-
-            print (numPlayersInShop);
     }
 }
