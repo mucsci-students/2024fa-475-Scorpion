@@ -17,6 +17,7 @@ public class ScaryText : MonoBehaviour
     [SerializeField] private Sprite childTreasureRoomSprite;
     [SerializeField] private float displayTime = 0.5f;
     [SerializeField] private float fadeTime = 1f;
+    [SerializeField] private BGMController bgmController;
 
     private Coroutine sequenceCoroutine;
     private Image im;
@@ -53,6 +54,9 @@ public class ScaryText : MonoBehaviour
             {
                 if (i == enteringTextDuration.Count)
                     break;
+                src.PlayOneShot (gong);
+                if (i == 2)
+                    src.PlayOneShot (muahahaha2);
                 duration = enteringTextDuration[i];
                 startTime = Time.time;
                 Display (enteringText[i]);
@@ -81,6 +85,11 @@ public class ScaryText : MonoBehaviour
             {
                 if (i == treasureRoomTextDuration.Count)
                     break;
+                if (i == 1)
+                    bgmController.BeginFinalFight ();
+                src.PlayOneShot (gong);
+                if (i == 3)
+                    src.PlayOneShot (muahahaha1);
                 duration = treasureRoomTextDuration[i];
                 startTime = Time.time;
                 Display (treasureRoomText[i]);

@@ -10,14 +10,17 @@ public class BGMController : MonoBehaviour
     [SerializeField] private AudioMixer sfxMixer;
     [SerializeField] private List<Pressureplate> doorButtons;
     [SerializeField] private List<ShopCollider> shopColliders;
+    [SerializeField] private List<SilentZone> silentZones;
     [SerializeField] private AudioSource shopSong;
     [SerializeField] private List<AudioClip> shopSongClips;
+    [SerializeField] private AudioSource finalFightSong;
     [SerializeField] private float transitionTime = 0.5f;
 
     private Coroutine interpolationCoroutine;
     private bool doorIsOpen;
     private int numPlayersInShop;
-    private int currSong = 0; // 1 means run, 2 means muffled run, 3 means shop
+    private int numPlayersInSilentZone;
+    private int currSong = 0; // 1 means run, 2 means muffled run, 3 means shop, 4 means in silent zone
 
     void Update ()
     {
@@ -32,9 +35,26 @@ public class BGMController : MonoBehaviour
         {
             numPlayersInShop += s.numPlayersInShop;
         }
+        numPlayersInSilentZone = 0;
+        foreach (SilentZone s in silentZones)
+        {
+            numPlayersInSilentZone += s.numPlayersInSilentZone;
+        }
 
         // decide whether the current song should change
-        if (numPlayersInShop == 0)
+        if (numPlayersInSilentZone == 2)
+        {
+            // be silent, if not already
+            if (currSong != 4)
+            {
+                shopSong.Stop ();
+                currSong = 4;
+                if (interpolationCoroutine != null)
+                    StopCoroutine (interpolationCoroutine);
+                interpolationCoroutine = StartCoroutine (InterpolateAudioEffect (transitionTime));
+            }
+        }
+        else if (numPlayersInShop == 0)
         {
             // play run, if not already
             if (currSong != 1)
@@ -98,12 +118,19 @@ public class BGMController : MonoBehaviour
             targetHighpass = 500f;
             targetShopVol = -80f;
         }
-        else // currSong == 3
+        else if (currSong == 3)
         {
             targetRunVol = -80f;
             targetLowpass = 5000f;
             targetHighpass = 500f;
             targetShopVol = -5f;
+        }
+        else // currSong == 4
+        {
+            targetRunVol = -80f;
+            targetLowpass = 5000f;
+            targetHighpass = 500f;
+            targetShopVol = -80f;
         }
 
         // interpolate over time
@@ -143,6 +170,11 @@ public class BGMController : MonoBehaviour
     public void SetSFXVolume (float volume)
     {
         sfxMixer.SetFloat ("Master", volume == -30 ? -80 : volume);
+    }
+
+    public void BeginFinalFight ()
+    {
+        finalFightSong.Play ();
     }
 
 
