@@ -2,22 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SwordDamagePowerUp : MonoBehaviour
+public class SwordDamagePowerUp : BuyableItem
 {
-    public int damageIncreaseAmount = 5; // Amount to increase the sword damage
-
-    void OnTriggerEnter2D(Collider2D other)
+    public int damageIncreaseAmount = 5; 
+   
+    public override void ApplyEffect(PlayerBuy player)
     {
-       
-        SwordSwing swordSwing = other.GetComponent<SwordSwing>();
-
+        SwordSwing swordSwing = player.GetComponentInChildren<SwordSwing>(); 
         if (swordSwing != null)
         {
-            
-            swordSwing.IncreaseDamage(damageIncreaseAmount);
+            swordSwing.IncreaseDamage(damageIncreaseAmount); // Increase the sword's damage
+            Debug.Log("Player " + player.playerID + " increased sword damage by " + damageIncreaseAmount);
 
-    
+            
             Destroy(gameObject);
+        }
+        else
+        {
+            Debug.LogWarning("Player does not have a SwordSwing component.");
         }
     }
 }
