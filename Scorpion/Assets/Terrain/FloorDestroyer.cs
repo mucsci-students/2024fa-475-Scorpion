@@ -94,15 +94,15 @@ public class FloorDestroyer : MonoBehaviour
             {
                 GameObject fallingTile = fallingTilePrefab;
 
+                // replace the floor tile with the falling tile
+                floor.SetTile (tileCoord, null);
+                GameObject ft = Instantiate (fallingTile, loc + new Vector2 (0.5f, 0.5f), Quaternion.identity, transform);
+                Instantiate (lavaLightPrefab, loc, Quaternion.identity, transform);
+
                 // update the falling tile's sprite
                 TileData tileData = new TileData ();
                 tileBase.GetTileData (tileCoord, floor, ref tileData);
-                fallingTile.GetComponent<SpriteRenderer> ().sprite = tileData.sprite;
-
-                // replace the floor tile with the falling tile
-                floor.SetTile (tileCoord, null);
-                Instantiate (fallingTile, loc + new Vector2 (0.5f, 0.5f), Quaternion.identity, transform);
-                Instantiate (lavaLightPrefab, loc, Quaternion.identity, transform);
+                ft.GetComponent<SpriteRenderer> ().sprite = tileData.sprite;
             }
         }
     }
