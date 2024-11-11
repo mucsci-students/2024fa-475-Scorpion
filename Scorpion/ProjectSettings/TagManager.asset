@@ -60,3 +60,6 @@ TagManager:
   - name: Player
     uniqueID: 431133389
     locked: 0
+  - name: Dead
+    uniqueID: 2302786627
+    locked: 0

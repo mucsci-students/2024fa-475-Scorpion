@@ -18,6 +18,7 @@ public class Health : MonoBehaviour
     private Vector3 respawnOffset = new Vector3(-5f, 0f, 0f);
     public SpriteRenderer spriteRenderer;
     public float opacity = 0.6f;
+    public CircleCollider2D collider;
     
 
     void Start()
@@ -52,13 +53,15 @@ public class Health : MonoBehaviour
 
     private IEnumerator immunityTimer(){
         yield return new WaitForSeconds(immuneTime);
-        immune = false; 
+        immune = false;
+        collider.enabled = true;
         spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
     }
 
 
     public void disable(){
             immune = true;
+            collider.enabled = false;
             spriteRenderer.color = new Color(1f, 1f, 1f, opacity);
             StartCoroutine(immunityTimer());
     }
@@ -95,7 +98,7 @@ public class Health : MonoBehaviour
                 disable();
             }
             if(immune){
-                
+
             }
             else{
             Destroy(gameObject);
