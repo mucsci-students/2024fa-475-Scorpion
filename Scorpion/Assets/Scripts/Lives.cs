@@ -6,8 +6,7 @@ public class Lives : MonoBehaviour
 {   
     public int maxLives = 4;
     public int currentLives;
-    
-    
+    public List<GameObject> hearts;
     // Start is called before the first frame update
     void Start()
     {   
@@ -35,6 +34,8 @@ public class Lives : MonoBehaviour
     public void reduceLives(){
         if(currentLives > 0){
             currentLives -= 1;
+            Destroy (hearts[0]);
+            hearts.RemoveAt(0);
         }
         
     }
