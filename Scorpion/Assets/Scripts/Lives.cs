@@ -6,9 +6,12 @@ public class Lives : MonoBehaviour
 {   
     public int maxLives = 4;
     public int currentLives;
+    
+    
     // Start is called before the first frame update
     void Start()
-    {
+    {   
+       
         currentLives = maxLives;
     }
 
@@ -17,6 +20,9 @@ public class Lives : MonoBehaviour
     {
         
     }
+
+
+    
 
     public bool isEmpty(){
         if(currentLives <= 0){

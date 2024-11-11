@@ -11,19 +11,20 @@ public class Health : MonoBehaviour
     private int currHealth;
     private int lastHitByPlayerID;
     private bool immune = false;
-    private float immuneTime = 2.0f;
-    private Vector3 respawnOffset = new Vector3(-5f, 0f, 0f);
     public GameObject coinPrefab;
     public Lives totalLives;
+    private float immuneTime = 3.0f;
     public Camera mainCamera;
+    private Vector3 respawnOffset = new Vector3(-5f, 0f, 0f);
+    public SpriteRenderer spriteRenderer;
+    public float opacity = 0.6f;
+    
 
     void Start()
     {
-        if (mainCamera == null) {
-        //Debug.LogError("No Camera tagged as MainCamera found!");}
         currHealth = maxHealth;
         mainCamera = Camera.main;
-        }
+        
     }
 
     public int GetHealth()
@@ -49,6 +50,19 @@ public class Health : MonoBehaviour
         return true;
     }
 
+    private IEnumerator immunityTimer(){
+        yield return new WaitForSeconds(immuneTime);
+        immune = false; 
+        spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
+    }
+
+
+    public void disable(){
+            immune = true;
+            spriteRenderer.color = new Color(1f, 1f, 1f, opacity);
+            StartCoroutine(immunityTimer());
+    }
+
     public bool TakeDamage(int amt, List<string> targets)
     {
         if (targets.Contains(gameObject.tag))
@@ -65,15 +79,6 @@ public class Health : MonoBehaviour
             currHealth = maxHealth;
     }
 
-    public void disable(){
-        immune = true;
-        StartCoroutine(immunityTimer());
-    }
-
-    private IEnumerator immunityTimer(){
-        yield return new WaitForSeconds(immuneTime);
-        immune = false;
-    }
 
     public void Die()
     {
@@ -86,35 +91,33 @@ public class Health : MonoBehaviour
         }   
             if(isEnemy == false){
             totalLives.reduceLives();
-            if(!totalLives.isEmpty() && isEnemy == false && (gameObject.CompareTag("Player1") || gameObject.CompareTag("Player2"))){
+            if(!totalLives.isEmpty()){
                 disable();
-                Respawn();
-                currHealth = maxHealth;
+            }
+            if(immune){
                 
             }
             else{
-        Destroy(gameObject);
+            Destroy(gameObject);
             }
             }
     }
 
-    private void Respawn() {
-    int originalLayer = gameObject.layer;
-    Vector3 viewportPosition = new Vector3(10.0f, 2.5f, mainCamera.nearClipPlane);
-
-    if (gameObject.CompareTag("Player1")){
-        viewportPosition = new Vector3(10.0f, 0.5f, mainCamera.nearClipPlane);
-    } 
-    
+    public void Respawn(int r) {
         
-    
+    /*Vector3 viewportPosition = new Vector3(7.0f, -0.5f, mainCamera.nearClipPlane);
+    int originalLayer = gameObject.layer;
+    if(r == 1){
+        viewportPosition = new Vector3(1.0f, -0.5f, mainCamera.nearClipPlane);
+    }
     Vector3 respawnPosition = mainCamera.ViewportToWorldPoint(viewportPosition);
     respawnPosition.z = transform.position.z;
     respawnPosition += respawnOffset;
     transform.position = respawnPosition;
     Vector3 currentScale = transform.localScale;
     gameObject.layer = originalLayer;
-    transform.localScale = currentScale;
+    transform.localScale = currentScale;*/
+    
     }
 
     public void zeroHealth(){
