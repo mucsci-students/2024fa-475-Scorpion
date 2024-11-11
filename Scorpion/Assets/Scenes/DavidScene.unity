@@ -1479,6 +1479,7 @@ MonoBehaviour:
   leftmostTileX: -10
   rightmostTileX: 9
   nextRowY: -4
+  immuneRanges: 
   fallingTilePrefab: {fileID: 1451629923120892973, guid: 5343eb69c65c54ad48c219269d9471c1, type: 3}
   lavaLightPrefab: {fileID: 1809142816546994360, guid: c1f627683fe50409b88dcdaed2c235eb, type: 3}
   cam: {fileID: 428847219}
@@ -10987,6 +10988,8 @@ MonoBehaviour:
   coinPrefab: {fileID: 1486388529112008758, guid: 4271a76a62f0d4d0f835fb9a7f42ee30, type: 3}
   totalLives: {fileID: 468280705}
   mainCamera: {fileID: 428847219}
+  spriteRenderer: {fileID: 572598792}
+  opacity: 0.6
 --- !u!58 &572598783
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -11127,6 +11130,11 @@ Animator:
 --- !u!4 &572598791 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7878350319992209165, guid: 61ed7a01b532c17489ff08570db6ce7f, type: 3}
+  m_PrefabInstance: {fileID: 1150605053}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &572598792 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 3626916397498700004, guid: 61ed7a01b532c17489ff08570db6ce7f, type: 3}
   m_PrefabInstance: {fileID: 1150605053}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &594217862
@@ -35281,6 +35289,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 78d03ce1d36c540d5a183e4b042d3afb, type: 3}
     - target: {fileID: 3626916397498700004, guid: 61ed7a01b532c17489ff08570db6ce7f, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3626916397498700004, guid: 61ed7a01b532c17489ff08570db6ce7f, type: 3}
       propertyPath: m_SortingLayer
       value: 1
       objectReference: {fileID: 0}
@@ -36412,11 +36424,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbfb5b63929054fa39ba66f951e0dc7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 2000000
+  maxHealth: 20
   isEnemy: 0
   coinPrefab: {fileID: 1486388529112008758, guid: 4271a76a62f0d4d0f835fb9a7f42ee30, type: 3}
   totalLives: {fileID: 468280705}
   mainCamera: {fileID: 428847219}
+  spriteRenderer: {fileID: 1549579282}
+  opacity: 0.6
 --- !u!58 &1549579273
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -36557,6 +36571,11 @@ Animator:
 --- !u!4 &1549579281 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7878350319992209165, guid: 61ed7a01b532c17489ff08570db6ce7f, type: 3}
+  m_PrefabInstance: {fileID: 316997111}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &1549579282 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 3626916397498700004, guid: 61ed7a01b532c17489ff08570db6ce7f, type: 3}
   m_PrefabInstance: {fileID: 316997111}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1552961502 stripped
@@ -48589,7 +48608,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1906237266
 Transform:
   m_ObjectHideFlags: 0
@@ -49282,9 +49301,25 @@ PrefabInstance:
       value: Lives
       objectReference: {fileID: 0}
     - target: {fileID: 7935224905006667853, guid: f0c1fa0b214c77f4dba0457dd2ed703a, type: 3}
+      propertyPath: p1
+      value: 
+      objectReference: {fileID: 572598781}
+    - target: {fileID: 7935224905006667853, guid: f0c1fa0b214c77f4dba0457dd2ed703a, type: 3}
+      propertyPath: p2
+      value: 
+      objectReference: {fileID: 1549579271}
+    - target: {fileID: 7935224905006667853, guid: f0c1fa0b214c77f4dba0457dd2ed703a, type: 3}
       propertyPath: maxLives
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 7935224905006667853, guid: f0c1fa0b214c77f4dba0457dd2ed703a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7935224905006667853, guid: f0c1fa0b214c77f4dba0457dd2ed703a, type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 428847219}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

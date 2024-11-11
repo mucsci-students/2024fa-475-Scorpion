@@ -9,7 +9,8 @@ public class Lives : MonoBehaviour
     public List<GameObject> hearts;
     // Start is called before the first frame update
     void Start()
-    {
+    {   
+       
         currentLives = maxLives;
     }
 
@@ -18,6 +19,9 @@ public class Lives : MonoBehaviour
     {
         
     }
+
+
+    
 
     public bool isEmpty(){
         if(currentLives <= 0){
