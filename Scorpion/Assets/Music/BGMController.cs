@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class BGMController : MonoBehaviour
 {
@@ -15,13 +16,41 @@ public class BGMController : MonoBehaviour
     [SerializeField] private List<AudioClip> shopSongClips;
     [SerializeField] private AudioSource finalFightSong;
     [SerializeField] private float transitionTime = 0.5f;
+    [SerializeField] private Slider bgmSlider;
+    [SerializeField] private Slider sfxSlider;
 
     private Coroutine interpolationCoroutine;
     private bool doorIsOpen;
     private int numPlayersInShop;
     private int numPlayersInSilentZone;
     private int currSong = 0; // 1 means run, 2 means muffled run, 3 means shop, 4 means in silent zone
+    private bool setup = true; // certain methods shouldn't happen during setup
 
+    void Start ()
+    {
+        if (PlayerPrefs.HasKey ("BGMVol"))
+        {
+            float bgmVol = PlayerPrefs.GetFloat ("BGMVol");
+            mixer.SetFloat ("Master Volume", bgmVol);
+            bgmSlider.value = bgmVol;
+        }
+        else
+        {
+            PlayerPrefs.SetFloat ("BGMVol", 0f);
+        }
+        if (PlayerPrefs.HasKey ("SFXVol"))
+        {
+            float sfxVol = PlayerPrefs.GetFloat ("SFXVol");
+            sfxMixer.SetFloat ("Master Volume", sfxVol);
+            sfxSlider.value = sfxVol;
+        }
+        else
+        {
+            PlayerPrefs.SetFloat ("SFXVol", 0f);
+        }
+        setup = false;
+    }
+    
     void Update ()
     {
         // update variables
@@ -164,12 +193,22 @@ public class BGMController : MonoBehaviour
 
     public void SetMusicVolume (float volume) // should be [0, 1]
     {
-        mixer.SetFloat ("Master", volume == -30 ? -80 : volume);
+        if (setup)
+            return;
+
+        volume = volume == -30 ? -80 : volume;
+        mixer.SetFloat ("Master Volume", volume);
+        PlayerPrefs.SetFloat ("BGMVol", volume);
     }
 
     public void SetSFXVolume (float volume)
     {
-        sfxMixer.SetFloat ("Master", volume == -30 ? -80 : volume);
+        if (setup)
+            return;
+
+        volume = volume == -30 ? -80 : volume;
+        sfxMixer.SetFloat ("Master Volume", volume);
+        PlayerPrefs.SetFloat ("SFXVol", volume);
     }
 
     public void BeginFinalFight ()

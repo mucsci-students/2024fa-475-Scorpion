@@ -11,7 +11,6 @@ public class ScaryTextChild : MonoBehaviour
     void Start ()
     {
         im.color = new Color (1f, 1f, 1f, 0f);
-        im.preserveAspect = true;
     }
    
     public void Display (Sprite sprite)

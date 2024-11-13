@@ -18,29 +18,44 @@ public class ScaryText : MonoBehaviour
     [SerializeField] private float displayTime = 0.5f;
     [SerializeField] private float fadeTime = 1f;
     [SerializeField] private BGMController bgmController;
+    [SerializeField] private Toggle toggle;
 
     private Coroutine sequenceCoroutine;
     private Image im;
     private RectTransform rectTransform;
     private ScaryTextChild child;
+    private int displayText; // 0 represents false, 1 represents true
+    private bool setup = true; // don't run the ToggleDisplayText() method during setup
 
     void Start ()
     {
         im = GetComponent<Image> ();
         im.color = new Color (1f, 1f, 1f, 0f);
-        im.preserveAspect = true;
         rectTransform = GetComponent<RectTransform> ();
         child = GetComponentInChildren<ScaryTextChild> ();
+
+        if (PlayerPrefs.HasKey ("DisplayText"))
+        {
+            displayText = PlayerPrefs.GetInt ("DisplayText");
+            toggle.isOn = displayText == 1;
+        }
+        else
+        {
+            PlayerPrefs.SetInt ("DisplayText", 1);
+        }
+        setup = false;
     }
     
     public void PlayEnteringSequence ()
     {
-        sequenceCoroutine = StartCoroutine (EnteringSequence ());
+        if (displayText == 1)
+            sequenceCoroutine = StartCoroutine (EnteringSequence ());
     }
 
     public void PlayTreasureRoomSequence ()
     {
-        sequenceCoroutine = StartCoroutine (TreasureRoomSequence ());
+        if (displayText == 1)
+            sequenceCoroutine = StartCoroutine (TreasureRoomSequence ());
     }
 
     private IEnumerator EnteringSequence ()
@@ -118,6 +133,18 @@ public class ScaryText : MonoBehaviour
             im.color += new Color (1f, 1f, 1f, Time.deltaTime / displayTime);
         else if (startTime + duration - fadeTime < Time.time)
             im.color += new Color (1f, 1f, 1f, -Time.deltaTime / fadeTime);
+    }
+
+    public void ToggleDisplayText ()
+    {
+        if (setup)
+            return;
+
+        if (displayText == 1)
+            displayText = 0;
+        else
+            displayText = 1;
+        PlayerPrefs.SetInt ("DisplayText", displayText);
     }
 
 }
