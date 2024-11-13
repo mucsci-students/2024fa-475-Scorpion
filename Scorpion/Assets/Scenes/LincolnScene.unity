@@ -504,6 +504,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player1Coins: 0
   player2Coins: 0
+  uiCoinManager1: {fileID: 0}
+  uiCoinManager2: {fileID: 0}
 --- !u!4 &116305515
 Transform:
   m_ObjectHideFlags: 0
@@ -785,6 +787,9 @@ MonoBehaviour:
   coinPrefab: {fileID: 0}
   totalLives: {fileID: 0}
   mainCamera: {fileID: 0}
+  spriteRenderer: {fileID: 0}
+  opacity: 0.6
+  collider: {fileID: 0}
 --- !u!114 &129876312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3356,6 +3361,7 @@ MonoBehaviour:
   displayTime: 0.5
   fadeTime: 1
   bgmController: {fileID: 237482179}
+  toggle: {fileID: 0}
 --- !u!82 &892122611
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4225,7 +4231,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1053422567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5405,11 +5411,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3599749510891255447, guid: d3bb408e1d9ce4740b5a81435e7490ee, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.6
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 3599749510891255447, guid: d3bb408e1d9ce4740b5a81435e7490ee, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 36.69
+      value: -11
       objectReference: {fileID: 0}
     - target: {fileID: 3599749510891255447, guid: d3bb408e1d9ce4740b5a81435e7490ee, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6565,7 +6571,8 @@ MonoBehaviour:
   leftmostTileX: -10
   rightmostTileX: 9
   nextRowY: -4
-  fallingTilePrefab: {fileID: 1451629923120892973, guid: 5343eb69c65c54ad48c219269d9471c1, type: 3}
+  immuneRanges: 10270000a0860100
+  fallingTilePrefab: {fileID: 3667052504256881500, guid: 5343eb69c65c54ad48c219269d9471c1, type: 3}
   lavaLightPrefab: {fileID: 1809142816546994360, guid: c1f627683fe50409b88dcdaed2c235eb, type: 3}
   cam: {fileID: 519420031}
 --- !u!114 &1502884480
@@ -15220,6 +15227,9 @@ MonoBehaviour:
   coinPrefab: {fileID: 0}
   totalLives: {fileID: 0}
   mainCamera: {fileID: 0}
+  spriteRenderer: {fileID: 0}
+  opacity: 0.6
+  collider: {fileID: 0}
 --- !u!114 &1757706528
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49862,11 +49872,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 505574264108592499, guid: 38d66824c7c2948fc997d24ea67c8bf6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.51
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 505574264108592499, guid: 38d66824c7c2948fc997d24ea67c8bf6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9.97
+      value: -14
       objectReference: {fileID: 0}
     - target: {fileID: 505574264108592499, guid: 38d66824c7c2948fc997d24ea67c8bf6, type: 3}
       propertyPath: m_LocalPosition.z
@@ -49940,6 +49950,10 @@ PrefabInstance:
     - target: {fileID: 5757249058978454069, guid: 3a6149ba0909e4deda5b6abccd2e7f39, type: 3}
       propertyPath: m_Name
       value: BGMController
+      objectReference: {fileID: 0}
+    - target: {fileID: 5757249058978454069, guid: 3a6149ba0909e4deda5b6abccd2e7f39, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6722028026884854798, guid: 3a6149ba0909e4deda5b6abccd2e7f39, type: 3}
       propertyPath: finalFightSong

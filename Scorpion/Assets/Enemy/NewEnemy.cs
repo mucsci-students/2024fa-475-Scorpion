@@ -15,7 +15,7 @@ public class NewEnemy : MonoBehaviour
     public Camera cam;
 
     private float retargetCooldown = 0.5f;
-    private Rigidbody2D rb;
+    protected Rigidbody2D rb;
     private NewEnemyVision vision;
     private List<float> weights; // how much the enemy wants to move in each of the 8 directions
     private float choiceThreshold = 0.0f;
@@ -25,9 +25,11 @@ public class NewEnemy : MonoBehaviour
     protected Vector2 targetDir;
     protected float timeOfLastAttack = float.NegativeInfinity;
     protected GameObject currTarget; // null if no current target
-    private int directionChoice = 0;
+    protected int directionChoice = 0;
     private float timeOfLastRetarget = 0f;
-    private float speed = 0f;
+    protected float speed = 0f;
+    protected Animator anim;
+    protected float timeOfLastAnimChange = float.NegativeInfinity;
 
     public bool drawWeights = false;
 
@@ -42,6 +44,8 @@ public class NewEnemy : MonoBehaviour
         }
 
         rangeInCamera = -cam.transform.position.z / 5f * 6f - 1f; // depends on the camera's z pos
+
+        anim = GetComponent<Animator> ();
     }
 
     void Update()
@@ -80,7 +84,7 @@ public class NewEnemy : MonoBehaviour
                 targetDir = (currTarget.transform.position - transform.position).normalized;
                 if (timeOfLastAttack + attackCooldown < Time.time && targetDist < range && transform.position.y - cam.transform.position.y < rangeInCamera)
                 {
-                    if (Attack (IndexToVector (VectorToIndex (currTarget.transform.position - transform.position))))
+                    if (Attack (IndexToVector (VectorToIndex (targetDir))))
                         timeOfLastAttack = Time.time;
                 }
             }
@@ -180,7 +184,7 @@ public class NewEnemy : MonoBehaviour
     }
 
     // advance in a certain direction
-    public void Move (Vector3 dir)
+    public virtual void Move (Vector3 dir)
     {
         rb.velocity = dir * speed;
     }
@@ -219,14 +223,14 @@ public class NewEnemy : MonoBehaviour
     }
 
     // index 0 is Vector2.up
-    private Vector2 IndexToVector (int i)
+    public Vector2 IndexToVector (int i)
     {
         float angle = ((float) i) / 8f * 2f * Mathf.PI; // in radians
         return new Vector2 (Mathf.Sin (angle), Mathf.Cos (angle));
     }
 
     // nearest of the 8 directions to a given Vector2
-    private int VectorToIndex (Vector2 dir)
+    public int VectorToIndex (Vector2 dir)
     {
         float angle = Vector2.SignedAngle (dir, Vector2.down) + 180f; // in degrees
         int i = (int) Mathf.Round (angle / 45f);

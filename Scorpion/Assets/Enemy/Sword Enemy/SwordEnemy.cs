@@ -115,4 +115,17 @@ public class SwordEnemy : NewEnemy
         // Destroy the hitbox
         Destroy(hitbox);
     }
+
+    public override void Move (Vector3 dir)
+    {
+        rb.velocity = dir * speed;
+        // update animation
+        anim.SetFloat ("Speed", Mathf.Clamp (speed, 0f, 1f));
+        int facingDir = directionChoice / 2 + 1;
+        if (timeOfLastAnimChange + 0.3f < Time.time && facingDir != anim.GetInteger ("Direction"))
+        {
+            anim.SetInteger ("Direction", facingDir);
+            timeOfLastAnimChange = Time.time;
+        }
+    }
 }
