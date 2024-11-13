@@ -15,81 +15,214 @@ public class KeyManager : MonoBehaviour
     [SerializeField] private ShieldSummon p2ShieldSummon;
     [SerializeField] private List<TextMeshProUGUI> texts;
 
-    private List<string> playerPrefKeys = new List<string> {"up1", "up2", "down1", "down2", "right1", "right2", "left1", "left2", "sword1", "sword2", "bow1", "bow2", "shield1", "shield2"};
+    private List<string> playerPrefs = new List<string> {"up1", "up2", "down1", "down2", "right1", "right2", "left1", "left2", "sword1", "sword2", "bow1", "bow2", "shield1", "shield2"};
     
-    private List<KeyCode> keys = new List<KeyCode> ();
-    private KeyCode[] keyCodes;
+    private List<KeyCode> keyBindings = new List<KeyCode> ();
     private int selectedUIKey = -1;
+    private KeyCode[] keyCodes = new KeyCode[]
+    {
+        KeyCode.None,
+        KeyCode.Backspace,
+        KeyCode.Delete,
+        KeyCode.Tab,
+        KeyCode.Clear,
+        KeyCode.Return,
+        KeyCode.Pause,
+        KeyCode.Escape,
+        KeyCode.Space,
+        KeyCode.Keypad0,
+        KeyCode.Keypad1,
+        KeyCode.Keypad2,
+        KeyCode.Keypad3,
+        KeyCode.Keypad4,
+        KeyCode.Keypad5,
+        KeyCode.Keypad6,
+        KeyCode.Keypad7,
+        KeyCode.Keypad8,
+        KeyCode.Keypad9,
+        KeyCode.KeypadPeriod,
+        KeyCode.KeypadDivide,
+        KeyCode.KeypadMultiply,
+        KeyCode.KeypadMinus,
+        KeyCode.KeypadPlus,
+        KeyCode.KeypadEnter,
+        KeyCode.KeypadEquals,
+        KeyCode.UpArrow,
+        KeyCode.DownArrow,
+        KeyCode.RightArrow,
+        KeyCode.LeftArrow,
+        KeyCode.Insert,
+        KeyCode.Home,
+        KeyCode.End,
+        KeyCode.PageUp,
+        KeyCode.PageDown,
+        KeyCode.F1,
+        KeyCode.F2,
+        KeyCode.F3,
+        KeyCode.F4,
+        KeyCode.F5,
+        KeyCode.F6,
+        KeyCode.F7,
+        KeyCode.F8,
+        KeyCode.F9,
+        KeyCode.F10,
+        KeyCode.F11,
+        KeyCode.F12,
+        KeyCode.Alpha0,
+        KeyCode.Alpha1,
+        KeyCode.Alpha2,
+        KeyCode.Alpha3,
+        KeyCode.Alpha4,
+        KeyCode.Alpha5,
+        KeyCode.Alpha6,
+        KeyCode.Alpha7,
+        KeyCode.Alpha8,
+        KeyCode.Alpha9,
+        KeyCode.Exclaim,
+        KeyCode.DoubleQuote,
+        KeyCode.Hash,
+        KeyCode.Dollar,
+        KeyCode.Percent,
+        KeyCode.Ampersand,
+        KeyCode.Quote,
+        KeyCode.LeftParen,
+        KeyCode.RightParen,
+        KeyCode.Asterisk,
+        KeyCode.Plus,
+        KeyCode.Comma,
+        KeyCode.Minus,
+        KeyCode.Period,
+        KeyCode.Slash,
+        KeyCode.Colon,
+        KeyCode.Semicolon,
+        KeyCode.Less,
+        KeyCode.Equals,
+        KeyCode.Greater,
+        KeyCode.Question,
+        KeyCode.At,
+        KeyCode.LeftBracket,
+        KeyCode.Backslash,
+        KeyCode.RightBracket,
+        KeyCode.Caret,
+        KeyCode.Underscore,
+        KeyCode.BackQuote,
+        KeyCode.A,
+        KeyCode.B,
+        KeyCode.C,
+        KeyCode.D,
+        KeyCode.E,
+        KeyCode.F,
+        KeyCode.G,
+        KeyCode.H,
+        KeyCode.I,
+        KeyCode.J,
+        KeyCode.K,
+        KeyCode.L,
+        KeyCode.M,
+        KeyCode.N,
+        KeyCode.O,
+        KeyCode.P,
+        KeyCode.Q,
+        KeyCode.R,
+        KeyCode.S,
+        KeyCode.T,
+        KeyCode.U,
+        KeyCode.V,
+        KeyCode.W,
+        KeyCode.X,
+        KeyCode.Y,
+        KeyCode.Z,
+        KeyCode.LeftCurlyBracket,
+        KeyCode.Pipe,
+        KeyCode.RightCurlyBracket,
+        KeyCode.Tilde,
+        KeyCode.Numlock,
+        KeyCode.CapsLock,
+        KeyCode.ScrollLock,
+        KeyCode.RightShift,
+        KeyCode.LeftShift,
+        KeyCode.RightControl,
+        KeyCode.LeftControl,
+        KeyCode.RightAlt,
+        KeyCode.LeftAlt,
+        KeyCode.LeftMeta,
+        KeyCode.RightMeta,
+        KeyCode.Help,
+        KeyCode.Print,
+        KeyCode.Break,
+        KeyCode.Menu
+    };
+
 
     void Start()
     {
         // get default / user set key binds
-        foreach (string k in playerPrefKeys)
+        foreach (string p in playerPrefs)
         {
-            if (PlayerPrefs.HasKey(k))
+            if (PlayerPrefs.HasKey(p))
             {
-                string key = PlayerPrefs.GetString(k);
+                string key = PlayerPrefs.GetString(p);
                 KeyCode keyCode = (KeyCode) System.Enum.Parse(typeof(KeyCode), key);
-                SetPlayerScriptKey(k, keyCode);
-                keys.Add(keyCode);
+                SetPlayerScriptKey(p, keyCode);
+                keyBindings.Add(keyCode);
             }
             else
             {
-                if (k == "up1") {
-                    PlayerPrefs.SetString(k, StringOfKeyCode(p1Movement.upButton));
-                    keys.Add(p1Movement.upButton);
+                if (p == "up1") {
+                    PlayerPrefs.SetString(p, p1Movement.upButton.ToString());
+                    keyBindings.Add(p1Movement.upButton);
                 } 
-                else if (k == "up2") {
-                    PlayerPrefs.SetString(k, StringOfKeyCode(p2Movement.upButton));
-                    keys.Add(p2Movement.upButton);
+                else if (p == "up2") {
+                    PlayerPrefs.SetString(p, p2Movement.upButton.ToString());
+                    keyBindings.Add(p2Movement.upButton);
                 } 
-                else if (k == "down1") {
-                    PlayerPrefs.SetString(k, StringOfKeyCode(p1Movement.downButton));
-                    keys.Add(p1Movement.downButton);
+                else if (p == "down1") {
+                    PlayerPrefs.SetString(p, p1Movement.downButton.ToString());
+                    keyBindings.Add(p1Movement.downButton);
                 } 
-                else if (k == "down2") {
-                    PlayerPrefs.SetString(k, StringOfKeyCode(p2Movement.downButton));
-                    keys.Add(p2Movement.downButton);
+                else if (p == "down2") {
+                    PlayerPrefs.SetString(p, p2Movement.downButton.ToString());
+                    keyBindings.Add(p2Movement.downButton);
                 } 
-                else if (k == "right1") {
-                    PlayerPrefs.SetString(k, StringOfKeyCode(p1Movement.rightButton));
-                    keys.Add(p1Movement.rightButton);
+                else if (p == "right1") {
+                    PlayerPrefs.SetString(p, p1Movement.rightButton.ToString());
+                    keyBindings.Add(p1Movement.rightButton);
                 } 
-                else if (k == "right2") {
-                    PlayerPrefs.SetString(k, StringOfKeyCode(p2Movement.rightButton));
-                    keys.Add(p2Movement.rightButton);
+                else if (p == "right2") {
+                    PlayerPrefs.SetString(p, p2Movement.rightButton.ToString());
+                    keyBindings.Add(p2Movement.rightButton);
                 } 
-                else if (k == "left1") {
-                    PlayerPrefs.SetString(k, StringOfKeyCode(p1Movement.leftButton));
-                    keys.Add(p1Movement.leftButton);
+                else if (p == "left1") {
+                    PlayerPrefs.SetString(p, p1Movement.leftButton.ToString());
+                    keyBindings.Add(p1Movement.leftButton);
                 } 
-                else if (k == "left2") {
-                    PlayerPrefs.SetString(k, StringOfKeyCode(p2Movement.leftButton));
-                    keys.Add(p2Movement.leftButton);
+                else if (p == "left2") {
+                    PlayerPrefs.SetString(p, p2Movement.leftButton.ToString());
+                    keyBindings.Add(p2Movement.leftButton);
                 } 
-                else if (k == "sword1") {
-                    PlayerPrefs.SetString(k, StringOfKeyCode(p1SwordSwing.swingButton));
-                    keys.Add(p1SwordSwing.swingButton);
+                else if (p == "sword1") {
+                    PlayerPrefs.SetString(p, p1SwordSwing.swingButton.ToString());
+                    keyBindings.Add(p1SwordSwing.swingButton);
                 } 
-                else if (k == "sword2") {
-                    PlayerPrefs.SetString(k, StringOfKeyCode(p2SwordSwing.swingButton));
-                    keys.Add(p2SwordSwing.swingButton);
+                else if (p == "sword2") {
+                    PlayerPrefs.SetString(p, p2SwordSwing.swingButton.ToString());
+                    keyBindings.Add(p2SwordSwing.swingButton);
                 } 
-                else if (k == "bow1") {
-                    PlayerPrefs.SetString(k, StringOfKeyCode(p1ArrowShoot.shootButton));
-                    keys.Add(p1ArrowShoot.shootButton);
+                else if (p == "bow1") {
+                    PlayerPrefs.SetString(p, p1ArrowShoot.shootButton.ToString());
+                    keyBindings.Add(p1ArrowShoot.shootButton);
                 } 
-                else if (k == "bow2") {
-                    PlayerPrefs.SetString(k, StringOfKeyCode(p2ArrowShoot.shootButton));
-                    keys.Add(p2ArrowShoot.shootButton);
+                else if (p == "bow2") {
+                    PlayerPrefs.SetString(p, p2ArrowShoot.shootButton.ToString());
+                    keyBindings.Add(p2ArrowShoot.shootButton);
                 } 
-                else if (k == "shield1") {
-                    PlayerPrefs.SetString(k, StringOfKeyCode(p1ShieldSummon.shieldButton));
-                    keys.Add(p1ShieldSummon.shieldButton);
+                else if (p == "shield1") {
+                    PlayerPrefs.SetString(p, p1ShieldSummon.shieldButton.ToString());
+                    keyBindings.Add(p1ShieldSummon.shieldButton);
                 } 
-                else if (k == "shield2") {
-                    PlayerPrefs.SetString(k, StringOfKeyCode(p2ShieldSummon.shieldButton));
-                    keys.Add(p2ShieldSummon.shieldButton);
+                else if (p == "shield2") {
+                    PlayerPrefs.SetString(p, p2ShieldSummon.shieldButton.ToString());
+                    keyBindings.Add(p2ShieldSummon.shieldButton);
                 }
             }
         }
@@ -97,39 +230,50 @@ public class KeyManager : MonoBehaviour
         // update UI to display key binds
         for (int i = 0; i < texts.Count; ++i)
         {
-            texts[i].text = StringOfKeyCode(keys[i]);
+            texts[i].text = StringOfKeyCode(keyBindings[i]);
         }
-
-        keyCodes = (KeyCode[]) System.Enum.GetValues(typeof(KeyCode));
     }
 
     void Update()
     {
         if (selectedUIKey != -1)
         {
-            foreach (KeyCode k in keyCodes)
+            foreach (KeyCode code in keyCodes)
             {
-                if (Input.GetKey(k))
+                if (Input.GetKey(code))
                 {
+                    if (code == KeyCode.Space)
+                    {
+                        selectedUIKey = -1;
+                        break;
+                    }
                     // a key was pressed
-                    if (keys.Contains(k))
+                    if (keyBindings.Contains(code))
                     {
-                        // swap two keys
-                        print("swapping two keys");
+                        // swap two key bindings
+                        print("swapping two key bindings");
+                        int otherUIKey = keyBindings.IndexOf (code);
+                        KeyCode selectedUIKeyCode = keyBindings[selectedUIKey];
+                        keyBindings[otherUIKey] = selectedUIKeyCode;
+                        texts[otherUIKey].text = StringOfKeyCode(selectedUIKeyCode);
+                        PlayerPrefs.SetString(playerPrefs[otherUIKey], selectedUIKeyCode.ToString ());
+                        SetPlayerScriptKey(playerPrefs[otherUIKey], selectedUIKeyCode);
                     }
-                    else
-                    {
-                        // substitute one key
-                        print("substituting out one key");
-                        keys[selectedUIKey] = k;
-                        texts[selectedUIKey].text = StringOfKeyCode(k);
-                        PlayerPrefs.SetString(playerPrefKeys[selectedUIKey], StringOfKeyCode(k));
-                        SetPlayerScriptKey(playerPrefKeys[selectedUIKey], k);
-                    }
+                    // substitute one key
+                    print("substituting out one key");
+                    keyBindings[selectedUIKey] = code;
+                    texts[selectedUIKey].text = StringOfKeyCode(code);
+                    PlayerPrefs.SetString(playerPrefs[selectedUIKey], code.ToString ());
+                    SetPlayerScriptKey(playerPrefs[selectedUIKey], code);
                     break;
                 }
             }
         }
+    }
+
+    public void SetSelectedUIKey (int uiKey)
+    {
+        selectedUIKey = uiKey;
     }
 
     private void SetPlayerScriptKey (string playerPrefKey, KeyCode newKey)

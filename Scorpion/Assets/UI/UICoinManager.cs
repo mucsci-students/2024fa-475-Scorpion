@@ -6,10 +6,35 @@ public class UICoinManager : MonoBehaviour
 {
     [SerializeField] private GameObject uiCoinPrefab;
     [SerializeField] float offset;
-    [SerializeField] float startYPos = 2f * 128.2281f + 20f;
 
     private int numCoins = 0;
     private List<GameObject> uiCoins = new List<GameObject> ();
+
+    Vector3 lastP;
+    Vector3 lastLP;
+
+/*
+    void Start ()
+    {
+        lastP = transform.position;
+        lastLP = transform.localPosition;
+    }
+
+    void Update ()
+    {
+        if (lastP != transform.position)
+        {
+            lastP = transform.position;
+            print ("global: " + transform.position);
+        }
+        if (lastLP != transform.localPosition)
+        {
+            lastLP = transform.localPosition;
+            print ("local: " + transform.localPosition);
+        }
+        print ();
+    }
+*/
 
     public void SetCoins (int num)
     {
@@ -17,12 +42,13 @@ public class UICoinManager : MonoBehaviour
         int numCoinsCurrentlyDisplayed = (int) Mathf.Ceil (((float) numCoins) / 5f);
         if (numCoinsToDisplay > numCoinsCurrentlyDisplayed)
         {
-            print (numCoinsCurrentlyDisplayed);
-            float y = startYPos + ((float) numCoinsCurrentlyDisplayed) * offset;
+            float y = transform.position.y;
             for (int i = 0; i < numCoinsToDisplay - numCoinsCurrentlyDisplayed; ++i)
             {
-                uiCoins.Add (Instantiate (uiCoinPrefab, new Vector3 (transform.position.x, y, 0f), Quaternion.identity, transform));
-                y += offset;
+                GameObject uiCoin = Instantiate (uiCoinPrefab, transform.position, Quaternion.identity, transform);
+                uiCoin.transform.localPosition += new Vector3 (0f, ((float) numCoinsCurrentlyDisplayed + 0.7f) * offset, 0f);
+                uiCoins.Add (uiCoin);
+                ++numCoinsCurrentlyDisplayed;
             }
         }
         else
