@@ -35569,6 +35569,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player1Coins: 0
   player2Coins: 0
+  uiCoinManager1: {fileID: 0}
+  uiCoinManager2: {fileID: 0}
 --- !u!4 &1164700854
 Transform:
   m_ObjectHideFlags: 0
@@ -36638,8 +36640,8 @@ MonoBehaviour:
   damageAmount: 5
   hitboxOffset: {x: 1, y: 0}
   playerID: 2
-  swordSpritePrefab: {fileID: 0}
-  swordSpriteOffset: {x: 0.5, y: 0}
+  swordSpritePrefab: {fileID: 4768776504061575895, guid: bd865c2cd1d06ae45909cb179fd5f3b5, type: 3}
+  swordSpriteOffset: {x: 0.3, y: 1}
 --- !u!114 &1549579275
 MonoBehaviour:
   m_ObjectHideFlags: 0
