@@ -5,19 +5,15 @@ using UnityEngine;
 public class PauseMenuManager : MonoBehaviour
 {
 
-    [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private List<GameObject> menuItems;
 
     void Update()
     {
         if (Input.GetKeyDown (KeyCode.Space))
         {
-            if (pauseMenu.activeSelf)
+            foreach (GameObject g in menuItems)
             {
-                pauseMenu.SetActive (false);
-            }
-            else
-            {
-                pauseMenu.SetActive (true);
+                g.SetActive (!g.activeSelf);
             }
                 
         }
