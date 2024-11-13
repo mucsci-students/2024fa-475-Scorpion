@@ -11044,6 +11044,8 @@ MonoBehaviour:
   damageAmount: 5
   hitboxOffset: {x: 1, y: 0}
   playerID: 1
+  swordSpritePrefab: {fileID: 4768776504061575895, guid: bd865c2cd1d06ae45909cb179fd5f3b5, type: 3}
+  swordSpriteOffset: {x: 0.3, y: 1}
 --- !u!114 &572598785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36636,6 +36638,8 @@ MonoBehaviour:
   damageAmount: 5
   hitboxOffset: {x: 1, y: 0}
   playerID: 2
+  swordSpritePrefab: {fileID: 0}
+  swordSpriteOffset: {x: 0.5, y: 0}
 --- !u!114 &1549579275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48760,7 +48764,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1906237266
 Transform:
   m_ObjectHideFlags: 0
