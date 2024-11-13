@@ -14,6 +14,9 @@ public class SwordSwing : MonoBehaviour
     private PlayerMovement playerMovement;
     private bool isSwinging = false;
     public int playerID; // Added playerID
+    public GameObject swordSpritePrefab; // Visual-only sword sprite prefab
+    public Vector2 swordSpriteOffset = new Vector2(0.3f, 1f);
+    private GameObject swordSpriteInstance; 
 
     void Start()
     {
@@ -30,45 +33,68 @@ public class SwordSwing : MonoBehaviour
     }
 
     IEnumerator SwingSword()
+{
+    isSwinging = true;
+    playerMovement.isAttacking = true;
+
+    // Disable player movement during the swing
+    playerMovement.enabled = false;
+
+    // Calculate the default spawn position
+    Vector2 spawnPosition = (Vector2)transform.position + playerMovement.lastFacingDirection * hitboxOffset.magnitude + new Vector2(0f, 0.25f);
+    GameObject hitbox = Instantiate(hitboxPrefab, spawnPosition, Quaternion.identity, transform);
+
+    // Calculate rotation for the hitbox based on direction
+    float angle = Mathf.Atan2(playerMovement.lastFacingDirection.y, playerMovement.lastFacingDirection.x) * Mathf.Rad2Deg;
+    hitbox.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+
+    // Calculate the default sword position based on lastFacingDirection
+    Vector2 swordPosition = (Vector2)transform.position + playerMovement.lastFacingDirection * swordSpriteOffset;
+
+    // Adjust the sword's position for facing down or right
+    if (playerMovement.lastFacingDirection == Vector2.down)
     {
-        isSwinging = true;
-        playerMovement.isAttacking = true;
-
-        // disabling player movement causes the player to keep moving in the same direction
-        playerMovement.enabled = false;
-
-        Vector2 spawnPosition = (Vector2)transform.position + playerMovement.lastFacingDirection * hitboxOffset.magnitude + new Vector2(0f, 0.25f);
-        GameObject hitbox = Instantiate(hitboxPrefab, spawnPosition, Quaternion.identity, transform); // made sword swing child of player
-
-        float angle = Mathf.Atan2(playerMovement.lastFacingDirection.y, playerMovement.lastFacingDirection.x) * Mathf.Rad2Deg;
-        hitbox.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-
-        // Apply damage to any enemies in the hitbox
-        SwordHitbox swordHitbox = hitbox.GetComponent<SwordHitbox>();
-        if (swordHitbox != null)
-        {
-            swordHitbox.DamageAmount = damageAmount;
-            swordHitbox.playerID = playerID; // Pass playerID to hitbox
-        }
-
-        Collider2D collider = hitbox.GetComponent<Collider2D>();
-        if (collider != null)
-        {
-            collider.isTrigger = false; // Ensure it's set for collision, not trigger
-        }
-
-        // Wait for the swing duration
-        yield return new WaitForSeconds(swingDuration);
-
-        // Enable player movement again
-        playerMovement.enabled = true;
-
-        // Destroy the hitbox
-        Destroy(hitbox);
-
-        isSwinging = false;
-        playerMovement.isAttacking = false;
+        // Small adjustment to reduce the downward offset
+        swordPosition += new Vector2(-0.2f, 0.75f); // You can adjust this value as needed
     }
+    else if (playerMovement.lastFacingDirection == Vector2.right)
+    {
+        // Small adjustment to reduce the rightward offset
+        swordPosition += new Vector2(0.1f, 0.25f); // You can adjust this value as needed
+    }
+
+    // Instantiate the sword sprite
+    swordSpriteInstance = Instantiate(swordSpritePrefab, swordPosition, Quaternion.identity, transform);
+    swordSpriteInstance.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle + -30f));
+
+    // Apply damage to any enemies in the hitbox
+    SwordHitbox swordHitbox = hitbox.GetComponent<SwordHitbox>();
+    if (swordHitbox != null)
+    {
+        swordHitbox.DamageAmount = damageAmount;
+        swordHitbox.playerID = playerID; // Pass playerID to hitbox
+    }
+
+    Collider2D collider = hitbox.GetComponent<Collider2D>();
+    if (collider != null)
+    {
+        collider.isTrigger = false; // Ensure it's set for collision, not trigger
+    }
+
+    // Wait for the swing duration
+    yield return new WaitForSeconds(swingDuration);
+
+    // Re-enable player movement after the swing
+    playerMovement.enabled = true;
+
+    // Destroy the hitbox and sword sprite
+    Destroy(hitbox);
+    Destroy(swordSpriteInstance);
+
+    isSwinging = false;
+    playerMovement.isAttacking = false;
+}
+
 
 public void IncreaseDamage(int amount)
     {
