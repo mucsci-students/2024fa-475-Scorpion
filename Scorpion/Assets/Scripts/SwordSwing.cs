@@ -32,7 +32,7 @@ public class SwordSwing : MonoBehaviour
         }
     }
 
-    IEnumerator SwingSword()
+IEnumerator SwingSword()
 {
     isSwinging = true;
     playerMovement.isAttacking = true;
@@ -51,19 +51,28 @@ public class SwordSwing : MonoBehaviour
     // Calculate the default sword position based on lastFacingDirection
     Vector2 swordPosition = (Vector2)transform.position + playerMovement.lastFacingDirection * swordSpriteOffset;
 
-    // Adjust the sword's position for facing down or right
-    if (playerMovement.lastFacingDirection == Vector2.down)
+    // Set a tolerance value for diagonal direction checks
+    float tolerance = 0.1f;
+
+    // Adjust the sword's position based on the facing direction
+    if (Mathf.Approximately(playerMovement.lastFacingDirection.x, 0f) && playerMovement.lastFacingDirection.y < 0)
     {
-        // Small adjustment to reduce the downward offset
-        swordPosition += new Vector2(-0.2f, 0.75f); // You can adjust this value as needed
+        swordPosition += new Vector2(-0.2f, 0.75f); // Adjust for facing down
     }
-    else if (playerMovement.lastFacingDirection == Vector2.right)
+    else if (Mathf.Approximately(playerMovement.lastFacingDirection.y, 0f) && playerMovement.lastFacingDirection.x > 0)
     {
-        // Small adjustment to reduce the rightward offset
-        swordPosition += new Vector2(0.1f, 0.25f); // You can adjust this value as needed
+        swordPosition += new Vector2(0.1f, 0.25f); // Adjust for facing right
+    }
+    else if (playerMovement.lastFacingDirection.x > tolerance && playerMovement.lastFacingDirection.y < -tolerance) // Down-right
+    {
+        swordPosition += new Vector2(0.3f, 0.75f); // Adjust for facing down-right
+    }
+    else if (playerMovement.lastFacingDirection.x < -tolerance && playerMovement.lastFacingDirection.y < -tolerance) // Down-left
+    {
+        swordPosition += new Vector2(0.25f, 0.55f); // Adjust for facing down-left
     }
 
-    // Instantiate the sword sprite
+    // Instantiate the sword sprite with the adjusted position
     swordSpriteInstance = Instantiate(swordSpritePrefab, swordPosition, Quaternion.identity, transform);
     swordSpriteInstance.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle + -30f));
 

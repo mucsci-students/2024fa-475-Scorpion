@@ -63,6 +63,6 @@ public class Lives : MonoBehaviour
     }
 
     public void restartGame(){
-    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+    SceneManager.LoadScene("Main");
 }
 }
