@@ -9,10 +9,12 @@ public class CameraMov : MonoBehaviour
     public float boundHeight = 200f;
     public CamTrigger startOne;
     public CamTrigger startTwo;
-    //public CamTrigger startThree;
+    public CamTrigger startThree;
+    public CamTrigger startFour;
     public CamTrigger stopOne;
-    //public CamTrigger stopTwo;
-    //public CamTrigger stopThree;
+    public CamTrigger stopTwo;
+    public CamTrigger stopThree;
+    public CamTrigger stopFour;
     private bool startContact = false;
     private bool stopContact = false;
     
@@ -37,7 +39,7 @@ public class CameraMov : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (startOne.moveCam() || startTwo.moveCam() /*|| startThree.moveCam()*/){
+        if (startOne.moveCam() || startTwo.moveCam() || startThree.moveCam() || startFour.moveCam()){
         startContact = true;
         stopContact = false;
         }
@@ -46,7 +48,7 @@ public class CameraMov : MonoBehaviour
             startMoving();
         }
 
-        if (stopOne.moveCam() /*|| stopTwo.moveCam() || stopThree.moveCam()*/){
+        if (stopOne.moveCam() || stopTwo.moveCam() || stopThree.moveCam() || stopFour.moveCam()){
         stopContact = true;
         startContact = false;
         }
