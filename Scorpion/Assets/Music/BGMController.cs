@@ -191,7 +191,7 @@ public class BGMController : MonoBehaviour
         mixer.SetFloat ("Shop Volume", targetShopVol);
     }
 
-    public void SetMusicVolume (float volume) // should be [0, 1]
+    public void SetMusicVolume (float volume) 
     {
         if (setup)
             return;
