@@ -6,6 +6,7 @@ The journey of two friends in search of treasure.
 ## Run the game
 - Windows: run ``Temple of the Scorpion.exe``
 - MacOS: run ``Temple of the Scorpion.app``
+
 (see releases section)
 
 ## Gameplay
