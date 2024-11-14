@@ -12,7 +12,7 @@ public class FloorDestroyer : MonoBehaviour
     [SerializeField] private GameObject fallingTilePrefab;
     [SerializeField] private GameObject lavaLightPrefab;
     [SerializeField] private Camera cam;
-
+    
     private float timeOfLastDestroy = 0f;
     private float timeBetweenDestroys = 0.2f;
     private int currImmuneRangeMin;
@@ -86,6 +86,7 @@ public class FloorDestroyer : MonoBehaviour
     // the Vector2 of a tile is the integer coordinates of its lower left hand corner
     public void DestroyTiles (List<Vector2> locations)
     {
+        /*
         foreach (Vector2 loc in locations)
         {
             Vector3Int tileCoord = floor.WorldToCell (loc);
@@ -93,6 +94,8 @@ public class FloorDestroyer : MonoBehaviour
             if (tileBase)
             {
                 GameObject fallingTile = fallingTilePrefab;
+                TileData tileData = new TileData ();
+                tileBase.GetTileData (tileCoord, floor, ref tileData);
 
                 // replace the floor tile with the falling tile
                 floor.SetTile (tileCoord, null);
@@ -100,10 +103,10 @@ public class FloorDestroyer : MonoBehaviour
                 Instantiate (lavaLightPrefab, loc, Quaternion.identity, transform);
 
                 // update the falling tile's sprite
-                TileData tileData = new TileData ();
-                tileBase.GetTileData (tileCoord, floor, ref tileData);
                 ft.GetComponent<SpriteRenderer> ().sprite = tileData.sprite;
+
             }
         }
+        */
     }
 }
