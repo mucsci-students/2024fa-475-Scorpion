@@ -9,13 +9,13 @@ The journey of two friends in search of treasure.
 (see releases section)
 
 ## Gameplay
-# Player 1:
+### Player 1:
 - Move: ``WASD``
 - Shoot: ``BACKTICK (`)``
 - Shield: ``ONE``
 - Sword attack: ``TAB``
 - Buy item from shop : ``E``
-# Player 2:
+### Player 2:
 - ``ARROW KEYS``
 - Shoot: ``BACKSLASH (\)``
 - Shield: ``RIGHT BRACKET (])``
