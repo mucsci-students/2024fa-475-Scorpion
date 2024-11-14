@@ -22,6 +22,8 @@ public class ScaryTextChild : MonoBehaviour
     {
         if (startTime + displayTime > Time.time)
             im.color += new Color (1f, 1f, 1f, Time.deltaTime / displayTime);
+        else if (startTime + duration < Time.time)
+            im.color = new Color (1f, 1f, 1f, 0f);
         else if (startTime + duration - fadeTime < Time.time)
             im.color += new Color (1f, 1f, 1f, -Time.deltaTime / fadeTime);
     }

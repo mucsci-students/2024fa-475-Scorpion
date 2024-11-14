@@ -67,6 +67,11 @@ public class ScaryText : MonoBehaviour
         {
             if (startTime + duration < Time.time)
             {
+                // finish fade
+                Fade (startTime, displayTime, fadeTime, duration);
+                if (i == 1)
+                    child.Fade (startTime, displayTime, fadeTime, duration);
+
                 if (i == enteringTextDuration.Count)
                     break;
                 src.PlayOneShot (gong);
@@ -87,6 +92,11 @@ public class ScaryText : MonoBehaviour
 
             yield return null;
         }
+
+        // finish fade
+        Fade (startTime, displayTime, fadeTime, duration);
+        if (i == 1)
+            child.Fade (startTime, displayTime, fadeTime, duration);
     }
 
     private IEnumerator TreasureRoomSequence ()
@@ -98,6 +108,11 @@ public class ScaryText : MonoBehaviour
         {
             if (startTime + duration < Time.time)
             {
+                //finish fade
+                Fade (startTime, displayTime, fadeTime, duration);
+                if (i == 1)
+                    child.Fade (startTime, displayTime, fadeTime, duration);
+
                 if (i == treasureRoomTextDuration.Count)
                     break;
                 if (i == 1)
@@ -120,6 +135,11 @@ public class ScaryText : MonoBehaviour
 
             yield return null;
         }
+
+        // finish fade
+        Fade (startTime, displayTime, fadeTime, duration);
+        if (i == 1)
+            child.Fade (startTime, displayTime, fadeTime, duration);
     }
 
     private void Display (Sprite sprite)
@@ -131,6 +151,8 @@ public class ScaryText : MonoBehaviour
     {
         if (startTime + displayTime > Time.time)
             im.color += new Color (1f, 1f, 1f, Time.deltaTime / displayTime);
+        else if (startTime + duration < Time.time)
+            im.color = new Color (1f, 1f, 1f, 0f);
         else if (startTime + duration - fadeTime < Time.time)
             im.color += new Color (1f, 1f, 1f, -Time.deltaTime / fadeTime);
     }
