@@ -20,6 +20,8 @@ public class ScaryText : MonoBehaviour
     [SerializeField] private BGMController bgmController;
     [SerializeField] private Toggle toggle;
 
+    public bool isNotFinalFight = true;
+
     private Coroutine sequenceCoroutine;
     private Image im;
     private RectTransform rectTransform;
@@ -119,7 +121,10 @@ public class ScaryText : MonoBehaviour
                     bgmController.BeginFinalFight ();
                 src.PlayOneShot (gong);
                 if (i == 3)
+                {
                     src.PlayOneShot (muahahaha1);
+                    isNotFinalFight = false;
+                }
                 duration = treasureRoomTextDuration[i];
                 startTime = Time.time;
                 Display (treasureRoomText[i]);

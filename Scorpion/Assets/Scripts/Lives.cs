@@ -8,6 +8,8 @@ public class Lives : MonoBehaviour
     public int maxLives = 4;
     public int currentLives;
     public List<GameObject> hearts;
+    public ScaryText scaryText;
+
     // Start is called before the first frame update
     void Start()
     {   
@@ -63,6 +65,7 @@ public class Lives : MonoBehaviour
     }
 
     public void restartGame(){
+        if (scaryText.isNotFinalFight)
     SceneManager.LoadScene("Main");
 }
 }
