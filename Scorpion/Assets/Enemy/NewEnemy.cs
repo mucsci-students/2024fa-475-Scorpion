@@ -96,6 +96,9 @@ public class NewEnemy : MonoBehaviour
 
         if (drawWeights)
                 DrawDebugWeights ();
+
+        if (transform.position.y - cam.transform.position.y < -rangeInCamera * 2)
+            Destroy (gameObject);
     }
 
     // choose a new target based on proximity
