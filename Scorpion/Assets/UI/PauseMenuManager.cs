@@ -13,9 +13,11 @@ public class PauseMenuManager : MonoBehaviour
         {
             foreach (GameObject g in menuItems)
             {
-                g.SetActive (!g.activeSelf);
+                if (g)
+                    g.SetActive (!g.activeSelf);
             }
-                
+            if (Time.timeScale == 0f)   Time.timeScale = 1f;
+            else Time.timeScale = 0f; 
         }
     }
 }
