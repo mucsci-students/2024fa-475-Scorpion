@@ -63,6 +63,7 @@ public class Health : MonoBehaviour
             immune = true;
             collider.enabled = false;
             spriteRenderer.color = new Color(1f, 1f, 1f, opacity);
+            currHealth = maxHealth;
             StartCoroutine(immunityTimer());
     }
 
