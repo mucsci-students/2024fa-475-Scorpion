@@ -109,6 +109,10 @@ public class Health : MonoBehaviour
             Destroy(gameObject);
             }
             }
+            else
+            {
+                Destroy (gameObject);
+            }
     }
 
     public void Respawn(int r) {
