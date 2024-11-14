@@ -98,9 +98,13 @@ public class Health : MonoBehaviour
             if(!totalLives.isEmpty()){
                 disable();
             }
+            if(totalLives.isEmpty()){
+                totalLives.restartGame();
+            }
             if(immune){
 
             }
+            
             else{
             Destroy(gameObject);
             }

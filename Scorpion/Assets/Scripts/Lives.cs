@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Lives : MonoBehaviour
 {   
@@ -60,4 +61,8 @@ public class Lives : MonoBehaviour
         else 
         maxLives += z;
     }
+
+    public void restartGame(){
+    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+}
 }
