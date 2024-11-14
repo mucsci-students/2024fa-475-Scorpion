@@ -39,19 +39,35 @@ public class CameraMov : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (startOne.moveCam() || startTwo.moveCam() || startThree.moveCam() || startFour.moveCam()){
+        if (startOne.moveCam()){
         startContact = true;
         stopContact = false;
+        boundHeight = 110;
         }
-        
+        else if( startTwo.moveCam()){
+           startContact = true;
+            stopContact = false;
+            boundHeight = 230; 
+        }
+        else if( startThree.moveCam()){
+           startContact = true;
+            stopContact = false;
+            boundHeight = 460; 
+        }
+        else if( startFour.moveCam()){
+           startContact = true;
+            stopContact = false;
+            boundHeight = 495; 
+        }
+
         if(startContact == true){
             startMoving();
         }
 
-        if (stopOne.moveCam() || stopTwo.moveCam() || stopThree.moveCam() || stopFour.moveCam()){
+        /*if (stopOne.moveCam() || stopTwo.moveCam() || stopThree.moveCam() || stopFour.moveCam()){
         stopContact = true;
         startContact = false;
-        }
+        }*/
 
         if (stopContact == true){
             stopMoving();
