@@ -25,6 +25,7 @@ public class BGMController : MonoBehaviour
     private int numPlayersInSilentZone;
     private int currSong = 0; // 1 means run, 2 means muffled run, 3 means shop, 4 means in silent zone
     private bool setup = true; // certain methods shouldn't happen during setup
+    [SerializeField] private bool tutorial = false;
 
     void Start ()
     {
@@ -49,10 +50,18 @@ public class BGMController : MonoBehaviour
             PlayerPrefs.SetFloat ("SFXVol", 0f);
         }
         setup = false;
+        if (tutorial)
+        {
+            mixer.SetFloat ("Run Volume", -80f);
+            mixer.SetFloat ("Shop Volume", -80f);
+        }
     }
     
     void Update ()
     {
+        if (tutorial)
+            return;
+
         // update variables
         doorIsOpen = false;
         foreach (Pressureplate p in doorButtons)
