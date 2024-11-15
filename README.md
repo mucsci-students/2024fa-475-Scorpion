@@ -3,9 +3,14 @@
 ## Temple of the Scorpion
 The journey of two friends in search of treasure.
 
+## Screenshots
+![tutorial_screenshot Image](./Image%2011-14-24%20at%201.13%20PM.jpg)
+![staffConfig_screenshot Image](./Image%2011-14-24%20at%201.14%20PM.jpg)
+![gameplay_screenshot Image](./Image%2011-14-24%20at%201.12%20PM.jpg)
+
 ## Run the game
 - Windows: run ``Scorpion.exe``
-- MacOS: run ``Temple of the Scorpion.app``
+- MacOS: run ``Temple of the Scorpion-2.app``
 
 (see releases section)
 
