@@ -15,8 +15,9 @@ public class Pressureplate : MonoBehaviour
     private Color originalColor;
     public Sprite openSprite;
     private Sprite closedSprite;
+    public float activeDuration = 2f; // Time the plate remains active after the player steps off
+    private Coroutine deactivateCoroutine;
 
-    // Start is called before the first frame update
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -25,67 +26,90 @@ public class Pressureplate : MonoBehaviour
         originalColor = plateRenderer.material.color;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (inContactP1 && playOnePlate){
-            plateRenderer.material.color = activeColor;
-            spriteRenderer.sprite = openSprite;
-            isActive = true;
-        }
-        
-        else if (inContactP2 && playTwoPlate){
-            plateRenderer.material.color = activeColor;
-            spriteRenderer.sprite = openSprite;
-            isActive = true;
-        }
-        else {
-            isActive = false;
-            plateRenderer.material.color = originalColor;
-            spriteRenderer.sprite = closedSprite;
+        if ((inContactP1 && playOnePlate) || (inContactP2 && playTwoPlate))
+        {
+            ActivatePlate();
+            if (deactivateCoroutine != null)
+            {
+                StopCoroutine(deactivateCoroutine);
+            }
         }
     }
 
-    public bool isitActive(){
+    public bool isitActive()
+    {
         return isActive;
     }
 
-    private void setPlayer(int x){
-        if (x == 1){
+    private void setPlayer(int x)
+    {
+        if (x == 1)
+        {
             playOnePlate = true;
         }
-        if (x == 2){
+        if (x == 2)
+        {
             playTwoPlate = true;
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision){
-        if (collision.gameObject.CompareTag("Player1")){
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player1"))
+        {
             inContactP1 = true;
         }
 
-        if (collision.gameObject.CompareTag("Player2")){
+        if (collision.gameObject.CompareTag("Player2"))
+        {
             inContactP2 = true;
         }
     }
 
-    private void onTriggerStay2D(Collider2D collision){
-        if (collision.gameObject.CompareTag("Player1")){
-
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player1"))
+        {
+            inContactP1 = false;
+            if (playOnePlate)
+            {
+                StartDeactivationTimer();
+            }
         }
-        
-        if (collision.gameObject.CompareTag("Player2")){
-            
+
+        if (collision.gameObject.CompareTag("Player2"))
+        {
+            inContactP2 = false;
+            if (playTwoPlate)
+            {
+                StartDeactivationTimer();
+            }
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision){
-        if (collision.gameObject.CompareTag("Player1")){
-            inContactP1 = false;
-        }
+    private void ActivatePlate()
+    {
+        plateRenderer.material.color = activeColor;
+        spriteRenderer.sprite = openSprite;
+        isActive = true;
+    }
 
-        if (collision.gameObject.CompareTag("Player2")){
-            inContactP2 = false;
+    private void StartDeactivationTimer()
+    {
+        if (deactivateCoroutine != null)
+        {
+            StopCoroutine(deactivateCoroutine);
         }
+        deactivateCoroutine = StartCoroutine(DeactivatePlateAfterDelay());
+    }
+
+    private IEnumerator DeactivatePlateAfterDelay()
+    {
+        yield return new WaitForSeconds(activeDuration);
+        isActive = false;
+        plateRenderer.material.color = originalColor;
+        spriteRenderer.sprite = closedSprite;
     }
 }
